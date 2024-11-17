@@ -23,9 +23,14 @@ export const registerFormSchema = z
     confirmPassword: z.string().min(4),
   })
   .required()
-  .refine((formData) => formData.password !== formData.confirmPassword, {
-    message: "Password don't match",
-    path: ["confirmPassword"],
+  .superRefine(({ confirmPassword, password }, ctx) => {
+    if (confirmPassword !== password) {
+      ctx.addIssue({
+        code: "custom",
+        message: "The passwords did not match",
+        path: ['confirmPassword']
+      });
+    }
   });
 
 export type RegisterFormType = z.infer<typeof registerFormSchema>;
