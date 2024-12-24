@@ -4,5 +4,6 @@
         "geist",
         "hookform",
         "tailwindcss"
-    ]
+    ],
+    "deepscan.enable": true
 }
