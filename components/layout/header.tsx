@@ -1,25 +1,15 @@
-'use client'
-import { ChevronDown } from 'lucide-react';
+'use client';
 import Link from 'next/link';
 
+import HeaderMenu from '../ui/header-menu';
 import { ThemeToggle } from './ThemeToggle';
 
 const Header = () => {
   return (
-    <header>
+    <header className='border-b p-4'>
       <div className="container flex items-center justify-between">
-        <h1 className="text-3xl">NextBlog</h1>
-        <div className="flex items-center gap-3">
-          <Link
-            href="/categories"
-            className="text-sm capitalize flex items-center"
-          >
-            Categories <ChevronDown />
-          </Link>
-          <Link href="/posts/new" className="text-sm capitalize">
-            White a post
-          </Link>
-        </div>
+        <h1 className="text-3xl text-transparent font-bold bg-clip-text bg-gradient-to-br from-red-400 to-blue-600"><Link href="/">NextBlog</Link></h1>
+        <HeaderMenu/>
         <div className="items-center flex gap-3">
           <ThemeToggle />
           <Link
