@@ -1,6 +1,6 @@
 import { ICategory } from '../types';
 
-export const categories: ICategory[] = [
+export const CATEGORIES: ICategory[] = [
   {
     name: "Next.js",
     slug: "next.js",

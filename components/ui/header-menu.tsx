@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { categories } from '@/utils/data/constant';
+import { CATEGORIES } from '@/utils/data/constant';
 
 import {
     NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink,
@@ -10,13 +10,13 @@ import {
 const HeaderMenu = () => {
   return (
     <NavigationMenu>
-      <NavigationMenuList>
+      <NavigationMenuList className='gap-2'>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
           <NavigationMenuContent>
-            {categories && categories.length > 0 ? (
+            {CATEGORIES && CATEGORIES.length > 0 ? (
               <ul className="flex flex-col gap-3 p-3">
-                {categories.map((category, index) => (
+                {CATEGORIES.map((category, index) => (
                   <li key={index}>
                     <NavigationMenuLink asChild>
                       <Link
