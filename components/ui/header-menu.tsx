@@ -9,7 +9,7 @@ import {
 
 const HeaderMenu = () => {
   return (
-    <NavigationMenu>
+    <NavigationMenu className='hidden lg:flex'>
       <NavigationMenuList className='gap-2'>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
