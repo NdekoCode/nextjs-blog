@@ -5,7 +5,7 @@ const ProfileButton = () => {
     <div>
       <Link
         href="/auth/login"
-        className="py-2 px-3 rounded bg-gray-700 text-white"
+        className="py-2 px-3 text-nowrap rounded bg-gray-700 text-white"
       >
         Login / SignUp
       </Link>

@@ -1,8 +1,7 @@
-"use client";
-import Link from 'next/link';
-
+"use client";;
 import ProfileButton from '../ProfileButton';
 import HeaderMenu from '../ui/header-menu';
+import AppLogo from './AppLogo';
 import ResponsiveMenu from './ResponsiveMenu';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -13,9 +12,7 @@ const Header = () => {
         {/* Responsive Menu */}
         <div className="flex items-center gap-2">
           <ResponsiveMenu />
-          <h1 className="text-3xl text-transparent font-bold bg-clip-text bg-gradient-to-br from-red-400 to-blue-600">
-            <Link href="/">NextBlog</Link>
-          </h1>
+          <AppLogo />
         </div>
         {/* Navigation with Shadcn */}
         <HeaderMenu />

@@ -13,7 +13,7 @@ const ResponsiveMenu = () => {
         <SheetTrigger>
           <Menu className="size-6" />
         </SheetTrigger>
-        <SheetContent side="left">
+        <SheetContent side="left" className='lg:hidden'>
           <div className="flex flex-col gap-y-5">
             <Link href="/write-post">
               <Button variant="ghost">Write a post</Button>

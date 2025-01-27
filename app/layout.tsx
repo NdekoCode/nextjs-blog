@@ -3,6 +3,7 @@ import '@/styles/globals.scss';
 
 import localFont from 'next/font/local';
 
+import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/theme-provider';
 
@@ -30,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="light">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-svh h-full flex flex-col`}
       >
         <ThemeProvider
           attribute="class"
@@ -40,6 +41,7 @@ export default function RootLayout({
         >
           <Header />
           <main className="container">{children}</main>
+          <Footer/>
         </ThemeProvider>
       </body>
     </html>

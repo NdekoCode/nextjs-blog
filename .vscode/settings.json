@@ -3,6 +3,7 @@
         "clsx",
         "geist",
         "hookform",
+        "Shadcn",
         "tailwindcss"
     ],
     "deepscan.enable": true
