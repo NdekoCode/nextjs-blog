@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { CATEGORIES } from '@/utils/data/constant';
+import { CATEGORIES } from '@/lib/data/constant';
 
 import { Button, buttonVariants } from '../ui/button';
 import AppLogo from './AppLogo';

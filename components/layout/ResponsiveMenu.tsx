@@ -1,7 +1,7 @@
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
 
-import { CATEGORIES } from '@/utils/data/constant';
+import { CATEGORIES } from '@/lib/data/constant';
 
 import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';

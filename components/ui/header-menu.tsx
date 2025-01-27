@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
-import { CATEGORIES } from '@/utils/data/constant';
+import { CATEGORIES } from '@/lib/data/constant';
 
 import {
-    NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink,
-    NavigationMenuList, NavigationMenuTrigger
+  NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink,
+  NavigationMenuList, NavigationMenuTrigger
 } from './navigation-menu';
 
 const HeaderMenu = () => {

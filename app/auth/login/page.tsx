@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import {
-    Form, FormControl, FormField, FormItem, FormLabel, FormMessage
+  Form, FormControl, FormField, FormItem, FormLabel, FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { loginFormDefaultValue, loginFormSchema, LoginFormType } from '@/lib/constants/form';
+import { loginFormDefaultValue, loginFormSchema, LoginFormType } from '@/lib/data/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 const Page = () => {
