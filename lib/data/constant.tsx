@@ -37,6 +37,8 @@ export const POSTS: Post[] = [
     nbViews: 25,
     nbComments: 8,
     slug: "react-state-management-choosing-right-solution",
+    content:
+      "State management is a critical part of any React application. This article explores different approaches, including the built-in Context API for simple state sharing, Redux for more complex and structured applications, and other libraries like Zustand and Recoil for alternative solutions. We'll discuss when to use each option, weighing trade-offs like learning curve, scalability, and ease of debugging. By the end, you'll be equipped to choose the right state management solution for your specific project.",
   },
   {
     id: 2,
@@ -51,6 +53,8 @@ export const POSTS: Post[] = [
     nbViews: 18,
     nbComments: 5,
     slug: "server-side-rendering-nextjs-practical-guide",
+    content:
+      "Server-side rendering (SSR) in Next.js provides a way to render pages on the server before sending them to the browser. This guide covers how SSR improves SEO by providing search engines with fully rendered HTML, reducing page load time for users. You'll learn to implement SSR with `getServerSideProps`, handle dynamic data fetching, and optimize performance using caching and data hydration. Practical examples will help you understand the best practices for applying SSR in real-world scenarios.",
   },
   {
     id: 3,
@@ -65,6 +69,8 @@ export const POSTS: Post[] = [
     nbViews: 32,
     nbComments: 10,
     slug: "building-cross-platform-mobile-apps-react-native",
+    content:
+      "React Native allows developers to create cross-platform mobile apps with a single codebase. This guide walks through the setup of a React Native project, explaining key concepts like components, state, and navigation. We'll also explore integrating native modules for platform-specific functionality and optimizing app performance. By the end, you'll have a solid foundation for building mobile apps that work seamlessly on both iOS and Android.",
   },
   {
     id: 4,
@@ -79,6 +85,8 @@ export const POSTS: Post[] = [
     nbViews: 22,
     nbComments: 7,
     slug: "advanced-css-techniques-modern-web-design",
+    content:
+      "Modern web design requires advanced CSS techniques to create visually appealing and interactive layouts. This article covers features like CSS Grid and Flexbox for layout design, transitions and animations for interactivity, and custom properties (CSS variables) for maintainable styling. You'll also learn to use media queries for responsive design and explore pseudo-elements for creative effects. These techniques will help elevate your web design skills to the next level.",
   },
   {
     id: 5,
@@ -93,6 +101,8 @@ export const POSTS: Post[] = [
     nbViews: 28,
     nbComments: 6,
     slug: "mastering-javascript-promises-asynchronous-programming",
+    content:
+      "Asynchronous programming is essential for modern JavaScript development. This article dives into promises, explaining how they work and how to chain them for sequential operations. We'll also cover async/await syntax for cleaner asynchronous code, error handling strategies, and real-world examples like fetching data from APIs. Understanding these concepts will make your code more efficient and easier to maintain.",
   },
   {
     id: 6,
@@ -107,6 +117,8 @@ export const POSTS: Post[] = [
     nbViews: 35,
     nbComments: 9,
     slug: "building-reusable-react-components-best-practices",
+    content:
+      "Reusable components are key to efficient React development. This article explains how to create components that are easy to reuse and maintain. We'll discuss props for customization, composition for flexibility, and techniques for managing state and side effects. You'll also learn to follow best practices like clear naming conventions and separating concerns, ensuring your components are robust and adaptable to future requirements.",
   },
   {
     id: 7,
@@ -121,6 +133,8 @@ export const POSTS: Post[] = [
     nbViews: 19,
     nbComments: 4,
     slug: "dynamic-routes-nextjs-comprehensive-guide",
+    content:
+      "Dynamic routing is a powerful feature in Next.js, allowing you to create flexible and scalable page structures. This guide covers the basics of dynamic route setup, including file-based routing, dynamic parameters, and optional catch-all routes. We'll also explore advanced topics like server-side rendering for dynamic pages and strategies for handling complex navigation scenarios.",
   },
   {
     id: 8,
@@ -135,6 +149,8 @@ export const POSTS: Post[] = [
     nbViews: 40,
     nbComments: 11,
     slug: "state-management-react-native-redux-context-api",
+    content:
+      "Managing state in React Native apps is crucial for building scalable applications. This article compares Redux, a powerful state management library, with the simpler Context API. We'll discuss their strengths, weaknesses, and use cases, helping you decide which solution fits your app's requirements. Practical examples and tips for integration are included to make the concepts actionable.",
   },
   {
     id: 9,
@@ -149,6 +165,8 @@ export const POSTS: Post[] = [
     nbViews: 27,
     nbComments: 8,
     slug: "responsive-design-patterns-css-grid-flexbox",
+    content:
+      "Responsive design ensures your web applications adapt seamlessly to various screen sizes. This article focuses on using CSS Grid and Flexbox to create fluid layouts, manage alignment, and handle complex grid structures. We'll explore real-world examples, including navigation menus and grid-based galleries, to illustrate how these tools can enhance the responsiveness and user experience of your projects.",
   },
   {
     id: 10,
@@ -163,7 +181,10 @@ export const POSTS: Post[] = [
     nbViews: 33,
     nbComments: 10,
     slug: "es6-features-javascript-developers-should-know",
+    content:
+      "ES6+ introduced several powerful features that revolutionized JavaScript development. This article covers key additions like arrow functions, destructuring, template literals, classes, modules, and promises. We'll explore how these features simplify code, improve readability, and enhance functionality. Examples and practical applications are provided to help you master these essential tools.",
   },
+
   {
     id: 11,
     category: "React",
@@ -177,6 +198,8 @@ export const POSTS: Post[] = [
     nbViews: 24,
     nbComments: 6,
     slug: "react-hooks-deep-dive-modern-react-state-management",
+    content:
+      "React Hooks have transformed the way developers manage state and side effects in React applications. This article dives into hooks like `useState`, `useEffect`, and `useContext`, explaining their use cases and implementation. You'll also learn about custom hooks and how they promote code reuse and modularity. Practical examples demonstrate how hooks simplify React development.",
   },
   {
     id: 12,
@@ -191,6 +214,8 @@ export const POSTS: Post[] = [
     nbViews: 31,
     nbComments: 9,
     slug: "seo-optimization-nextjs-best-practices-higher-rankings",
+    content:
+      "SEO optimization is critical for increasing the visibility of your Next.js applications. This article discusses best practices like improving page speed, optimizing metadata with `next/head`, and generating dynamic sitemaps. We'll also cover advanced techniques such as server-side rendering (SSR) and static site generation (SSG) for better search engine indexing.",
   },
   {
     id: 13,
@@ -205,6 +230,8 @@ export const POSTS: Post[] = [
     nbViews: 23,
     nbComments: 7,
     slug: "navigation-react-native-choosing-right-library",
+    content:
+      "Navigation is a core aspect of React Native apps, and choosing the right library can impact user experience. This article compares popular navigation solutions like React Navigation and React Native Navigation, highlighting their pros, cons, and best use cases. You'll also learn about stack, tab, and drawer navigators and how to implement them effectively.",
   },
   {
     id: 14,
@@ -219,6 +246,8 @@ export const POSTS: Post[] = [
     nbViews: 29,
     nbComments: 8,
     slug: "sass-scss-enhancing-css-preprocessors",
+    content:
+      "SASS and SCSS preprocessors extend CSS with powerful features like variables, nested rules, mixins, and inheritance. This article introduces these features, explaining how they simplify complex stylesheets and improve maintainability. You'll also learn how to compile SASS/SCSS into standard CSS and integrate it into your workflow.",
   },
   {
     id: 15,
@@ -233,6 +262,8 @@ export const POSTS: Post[] = [
     nbViews: 36,
     nbComments: 11,
     slug: "modern-javascript-tooling-babel-webpack-beyond",
+    content:
+      "Modern JavaScript development relies heavily on tools like Babel for transpiling code and Webpack for bundling. This article explains how these tools work, their benefits, and how to configure them for optimal performance. Additional tools like ESLint and Prettier are also discussed to ensure code quality and consistency.",
   },
   {
     id: 16,
@@ -247,6 +278,8 @@ export const POSTS: Post[] = [
     nbViews: 38,
     nbComments: 12,
     slug: "testing-react-components-comprehensive-guide",
+    content:
+      "Testing ensures the reliability and robustness of React components. This article covers unit testing with Jest, integration testing with React Testing Library, and tips for writing effective test cases. Examples demonstrate how to simulate user interactions, mock API calls, and test edge cases.",
   },
   {
     id: 17,
@@ -261,6 +294,8 @@ export const POSTS: Post[] = [
     nbViews: 34,
     nbComments: 10,
     slug: "authentication-nextjs-implementing-secure-user-authentication",
+    content:
+      "User authentication is vital for securing Next.js applications. This article explores strategies for implementing authentication using libraries like NextAuth.js and JWT. We'll cover topics like protecting routes, handling sessions, and integrating third-party providers for a seamless user experience.",
   },
   {
     id: 18,
@@ -275,6 +310,8 @@ export const POSTS: Post[] = [
     nbViews: 26,
     nbComments: 7,
     slug: "optimizing-react-native-apps-performance-best-practices",
+    content:
+      "Optimizing performance in React Native apps ensures a smooth user experience. This article covers techniques like reducing app bundle size, optimizing animations, and using native modules for heavy computations. We'll also discuss profiling tools to identify and resolve performance bottlenecks.",
   },
   {
     id: 19,
@@ -289,6 +326,8 @@ export const POSTS: Post[] = [
     nbViews: 30,
     nbComments: 9,
     slug: "css-in-js-styling-react-applications-styled-components",
+    content:
+      "CSS-in-JS is a modern approach to styling React applications, combining the power of JavaScript with CSS for modular and dynamic styling. This article introduces Styled Components, explaining how to create styled components, manage themes, and use props for dynamic styles. We'll also explore the benefits of CSS-in-JS, such as scoped styles, improved maintainability, and elimination of CSS class name conflicts. Examples will guide you in integrating Styled Components into your projects.",
   },
   {
     id: 20,
@@ -303,6 +342,7 @@ export const POSTS: Post[] = [
     nbViews: 37,
     nbComments: 11,
     slug: "functional-programming-javascript-principles-practices",
+    content:
+      "Functional programming (FP) is a paradigm that treats computation as the evaluation of mathematical functions, avoiding changing state and mutable data. This article dives into FP principles in JavaScript, such as pure functions, immutability, and higher-order functions. You'll learn how to use techniques like function composition, currying, and recursion to write clean and maintainable code. Practical examples illustrate how FP can solve common programming challenges, making your JavaScript code more robust and scalable.",
   },
 ];
- 
