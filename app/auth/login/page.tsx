@@ -1,10 +1,12 @@
-'use client';
+"use client";
 
+import { Github, Mail } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
+import PageTitle from '@/components/PageTitle';
 import { Button } from '@/components/ui/button';
 import {
-  Form, FormControl, FormField, FormItem, FormLabel, FormMessage
+    Form, FormControl, FormField, FormItem, FormLabel, FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { loginFormDefaultValue, loginFormSchema, LoginFormType } from '@/lib/data/form';
@@ -21,41 +23,55 @@ const Page = () => {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 min-w-[280px] p-5 shadow-lg rounded-md border border-gray-200 dark:border-gray-400">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="Enter your password"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+    <div className="flex flex-col gap-y-10 items-center">
+      <PageTitle title="Login or Register" />
+      <div className="flex flex-col gap-y-4 w-full">
+        <Button className="w-full">
+          <Github className="mr-3" /> Signin with Github
+        </Button>
+        <Button className="w-full">
+          <Mail className="mr-3" /> Signin with Google
+        </Button>
+      </div>
+      <Form {...form}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-4 min-w-[280px] w-full p-5 shadow-lg rounded-md border border-gray-200 dark:border-gray-400"
+        >
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Enter your password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit">Submit</Button>
+        </form>
+      </Form>
+    </div>
   );
 };
 
