@@ -122,7 +122,7 @@ export const POSTS: Post[] = [
     id: 8,
     category: "React Native",
     title: "State Management in React Native Apps: Redux vs. Context API",
-    image: "/react-native-state-management.jpg",
+    image: "/react-state-management.jpg",
     caption:
       "Comparison of state management solutions, Redux and Context API, in React Native applications.",
     date: "2023-05-12",
@@ -136,7 +136,7 @@ export const POSTS: Post[] = [
     id: 9,
     category: "CSS",
     title: "Responsive Design Patterns with CSS Grid and Flexbox",
-    image: "/responsive-design-css.jpg",
+    image: "/advanced-css-techniques.jpg",
     caption:
       "Explore responsive design patterns using CSS Grid and Flexbox for modern web layouts.",
     date: "2023-06-01",
@@ -164,7 +164,7 @@ export const POSTS: Post[] = [
     id: 11,
     category: "React",
     title: "React Hooks: A Deep Dive into Modern React State Management",
-    image: "/react-hooks-deep-dive.jpg",
+    image: "/reusable-react-components.jpg",
     caption:
       "In-depth exploration of React Hooks and their role in modern React state management.",
     date: "2023-07-05",
@@ -220,7 +220,7 @@ export const POSTS: Post[] = [
     id: 15,
     category: "JavaScript",
     title: "Modern JavaScript Tooling: Babel, Webpack, and Beyond",
-    image: "/modern-javascript-tooling.jpg",
+    image: "/javascript-promises-async.jpg",
     caption:
       "Exploring modern JavaScript tooling with Babel, Webpack, and other essential tools.",
     date: "2023-09-12",
@@ -248,7 +248,7 @@ export const POSTS: Post[] = [
     id: 17,
     category: "Next.js",
     title: "Authentication in Next.js: Implementing Secure User Authentication",
-    image: "/nextjs-authentication.jpg",
+    image: "/nextjs-dynamic-routes.jpg",
     caption:
       "Implementing secure user authentication in Next.js applications for enhanced security.",
     date: "2023-10-15",
@@ -262,7 +262,7 @@ export const POSTS: Post[] = [
     id: 18,
     category: "React Native",
     title: "Optimizing React Native Apps for Performance: Best Practices",
-    image: "/react-native-performance.jpg",
+    image: "/react-state-management.jpg",
     caption:
       "Best practices for optimizing React Native apps to deliver a high-performance user experience.",
     date: "2023-10-30",
@@ -290,7 +290,7 @@ export const POSTS: Post[] = [
     id: 20,
     category: "JavaScript",
     title: "Functional Programming in JavaScript: Principles and Practices",
-    image: "/functional-programming-javascript.jpg",
+    image: "/es6-javascript.jpg",
     caption:
       "Understanding the principles and practices of functional programming in JavaScript.",
     date: "2023-11-30",
