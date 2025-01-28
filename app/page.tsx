@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import Newsletter from '@/components/pages/home/Newsletter';
-import PostCard from '@/components/pages/home/PostCard';
+import PostList from '@/components/pages/home/PostList';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { CATEGORIES, POSTS } from '@/lib/data/constant';
 
@@ -18,15 +18,21 @@ export default function Home() {
 
       {/* Categories */}
       <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 lg:gap-5">
-        {CATEGORIES.map((category) => (<Button variant="outline" key={category.id} asChild><Link href={`/categories/${category.slug}`} className={buttonVariants({variant:'link'})}>{category.name}</Link></Button>))}
+        {CATEGORIES.map((category) => (
+          <Button variant="outline" key={category.id} asChild>
+            <Link
+              href={`/categories/${category.slug}`}
+              className={buttonVariants({ variant: "link" })}
+            >
+              {category.name}
+            </Link>
+          </Button>
+        ))}
       </div>
       {/* End Categories */}
 
       {/* Posts */}
-
-      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-5">
-        {POSTS.map((post) => (<PostCard className='basis-[30%]' post={post} key={post.id}/>))}
-      </div>
+      <PostList posts={POSTS} />
     </section>
   );
 }

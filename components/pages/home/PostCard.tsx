@@ -1,5 +1,6 @@
 import { Eye, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FC } from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -13,15 +14,17 @@ const PostCard: FC<{ post: Post; className?: string }> = ({
   className,
 }) => {
   return (
-    <Card className={cn(className)}>
-      <CardHeader className="h-80 w-full">
-        <Image
-          className="w-full h-full rounded-lg  object-cover"
-          width={1280}
-          height={750}
-          alt={post.title}
-          src={post.image}
-        />
+    <Card className={cn("group relative", className)}>
+      <CardHeader>
+        <div className="h-72 w-full overflow-hidden rounded-lg">
+          <Image
+            className="w-full h-full group-hover:scale-110 transition-transform duration-300  object-cover"
+            width={1280}
+            height={750}
+            alt={post.title}
+            src={post.image}
+          />
+        </div>
       </CardHeader>
       <CardContent>
         <CardTitle>{post.title}</CardTitle>
@@ -37,6 +40,7 @@ const PostCard: FC<{ post: Post; className?: string }> = ({
           </Button>
         </div>
       </CardFooter>
+      <Link href={`/posts/${post.slug}`} className='absolute inset-0 opacity-0'/>
     </Card>
   );
 };
