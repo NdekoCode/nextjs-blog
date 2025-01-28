@@ -17,6 +17,10 @@ export const CATEGORIES: ICategory[] = [
     name: "Javascript",
     slug: "javascript",
   },
+  {
+    name: "React",
+    slug: "react",
+  },
 ].map((d, i) => ({ ...d, id: i + 1 }));
 
 export const POSTS: Post[] = [
