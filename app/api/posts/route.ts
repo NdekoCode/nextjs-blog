@@ -4,6 +4,6 @@ import { POSTS } from '@/lib/data/constant';
 
 export const GET = (req:NextRequest, res:NextResponse) => {
 
-  return NextResponse.json(POSTS, { status: 200 });
+  return Response.json(POSTS, { status: 200 });
 }
 
