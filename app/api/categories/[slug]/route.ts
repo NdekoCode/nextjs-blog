@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 
 import { CATEGORIES, POSTS } from '@/lib/data/constant';
 
-export const GET = (
+export const GET = async(
   req: NextRequest,
   { params }: { params: { slug?: string } }
 ) => {
