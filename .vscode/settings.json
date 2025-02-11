@@ -3,8 +3,12 @@
         "clsx",
         "geist",
         "hookform",
+        "postgresql",
         "Shadcn",
-        "tailwindcss"
+        "SUPABASE",
+        "tailwindcss",
+        "XVCJ"
     ],
-    "deepscan.enable": true
+    "deepscan.enable": true,
+    "postman.settings.dotenv-detection-notification-visibility": false
 }
