@@ -1,12 +1,14 @@
 {
   "version": "0.2",
-  "language": "en, en-GB",
+  "language": "en, en-GB, fr, fr-FR",
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "words": [
     "cuid",
     "msoqtxmahaghrtlgqzjx",
     "nextjs",
+    "parce",
     "pgbouncer",
+    "récupère",
     "Supavisor",
     "wjtfuaoofwgoqhcjfjut"
   ],
