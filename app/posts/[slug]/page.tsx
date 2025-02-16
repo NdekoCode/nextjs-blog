@@ -45,10 +45,10 @@ const SinglePost: NextPage<{ params: { slug: string } }> = ({ params }) => {
           </div>
 
           <div className="flex items-center gap-1.5">
-            <Button variant="ghost">
+            <Button aria-label={`View ${post.nbComments} comments`} variant="ghost">
               <MessageCircle size={24} /> <span>{post.nbComments}</span>
             </Button>
-            <Button variant="ghost">
+            <Button aria-label={`View ${post.nbViews} views`} variant="ghost">
               <Eye size={24} /> <span>{post.nbViews}</span>
             </Button>
           </div>

@@ -32,10 +32,10 @@ const PostCard: FC<{ post: Post; className?: string }> = ({
       <CardFooter className="justify-between">
         <Badge variant="outline">{post.category} </Badge>
         <div className="flex items-center gap-1.5">
-          <Button variant="ghost">
+          <Button aria-label={`View ${post.nbComments} comments`} variant="ghost">
             <MessageCircle /> <span>{post.nbComments}</span>
           </Button>
-          <Button variant="ghost">
+          <Button aria-label={`View ${post.nbViews} views`} variant="ghost">
             <Eye /> <span>{post.nbViews}</span>
           </Button>
         </div>

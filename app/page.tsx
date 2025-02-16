@@ -19,7 +19,7 @@ export default function Home() {
       {/* Categories */}
       <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 lg:gap-5">
         {CATEGORIES.map((category) => (
-          <Button variant="outline" key={category.id} asChild>
+          <Button variant="outline" aria-label={`View all posts in "${category.name}" category`} key={category.id} asChild>
             <Link
               href={`/categories/${category.slug}`}
               className={buttonVariants({ variant: "link" })}

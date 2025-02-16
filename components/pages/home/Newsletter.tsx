@@ -50,7 +50,7 @@ const Newsletter = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className='w-full py-4 text-xl font-medium'>Subscribe to our newsletter</Button>
+          <Button aria-label="Subscribe to our newsletter" type="submit" className='w-full py-4 text-xl font-medium'>Subscribe to our newsletter</Button>
         </form>
       </Form>
     </div>

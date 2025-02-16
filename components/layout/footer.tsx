@@ -11,7 +11,7 @@ const Footer = () => {
       <AppLogo />
       <ul className="flex items-center flex-wrap justify-center gap-3">
         {CATEGORIES.map((category) => (
-          <Button variant="ghost" className="p-1" key={category.id} asChild>
+          <Button variant="ghost" aria-label={`View all posts in "${category.name}" category`} className="p-1" key={category.id} asChild>
             <Link
               href={`/categories/${category.slug}`}
               className={buttonVariants({ variant: "link" })}
@@ -20,7 +20,7 @@ const Footer = () => {
             </Link>
           </Button>
         ))}
-        <Button variant="ghost" className="p-1" asChild>
+        <Button variant="ghost" aria-label="Write a post" className="p-1" asChild>
           <Link
             href="/add-a-post"
             className={buttonVariants({ variant: "link" })}
