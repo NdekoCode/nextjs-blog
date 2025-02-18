@@ -1,9 +1,19 @@
 "use client";
 import Image from 'next/image';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
 
 import Loading from '@/components/Loading';
+import { Dialog, DialogHeader } from '@/components/ui/dialog';
+import {
+    Form, FormControl, FormField, FormItem, FormLabel, FormMessage
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { PostFormType } from '@/lib/data/form';
 import { getPosts } from '@/lib/data/react-query';
+import {
+    DialogContent, DialogDescription, DialogTitle, DialogTrigger
+} from '@radix-ui/react-dialog';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Home() {
@@ -11,8 +21,11 @@ export default function Home() {
     queryKey: ["posts"],
     queryFn: getPosts,
   });
+  const form = useForm<PostFormType>();
+  const handleSubmit = form.handleSubmit;
+  const onSubmit = (values: PostFormType) => {};
   if (isLoading) {
-    return <Loading/>
+    return <Loading />;
   }
   if (isError) {
     return <div>Error: {error?.message}</div>;
@@ -28,6 +41,36 @@ export default function Home() {
           <p className="mt-1 text-gray-600 dark:text-neutral-400">
             We've helped some great companies brand, design and get to market.
           </p>
+          <Dialog>
+            <DialogTrigger>Add a post</DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add a post</DialogTitle>
+                <DialogDescription>
+                  Creating a post to increase posts data
+                </DialogDescription>
+              </DialogHeader>
+              <div>
+                <Form {...form}>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <FormField
+                      name="title"
+                      control={form.control}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Title</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Add a title" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </form>
+                </Form>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 lg:mb-14">
@@ -61,7 +104,11 @@ export default function Home() {
                   {post.title}
                 </h3>
               </div>
-              <Link className="absolute inset-0 opacity-0" href="#" aria-label={`Read More about "${post.title}"`}/>
+              <Link
+                className="absolute inset-0 opacity-0"
+                href={`/react-query-test/${post.id}`}
+                aria-label={`Read More about "${post.title}"`}
+              />
             </article>
           ))}
         </div>
