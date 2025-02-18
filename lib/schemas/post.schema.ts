@@ -28,18 +28,18 @@ export type Post = {
   content?: string;
 };
 export const postSchema = z.object({
-  id: z.string().or(z.number()),
-  tags: z.array(z.string()),
-  reactions: z.object({
-    likes: z.number(),
-    dislikes: z.number(),
-  }),
+  id: z.number(),
+  category: z.string(),
   title: z.string(),
-  userId: z.number(),
-  views: z.number(),
-  body: z.string(),
-  createdAt: z.string().datetime().optional(),
-  updatedAt: z.string().datetime().optional(),
+  image: z.string().optional(),
+  caption: z.string().optional(),
+  date: z.string().or(z.date()).optional(),
+  minutesToRead: z.number(),
+  author: z.string().optional(),
+  nbViews: z.number().default(0),
+  nbComments: z.number().default(0),
+  slug: z.string(),
+  content: z.string().optional(),
 });
 export const postsSchema = z.object({
   posts: z.array(postSchema),
