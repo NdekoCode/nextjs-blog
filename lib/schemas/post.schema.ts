@@ -30,6 +30,14 @@ export const postSchema = z.object({
   content: z.string(),
 });
 export const postsSchema = z.array(postSchema);
+
+export type CategoryPost = z.infer<typeof categoryPostSchema>;
+
+export const postCategorySchema = z.object({
+  ...postSchema.shape,
+  category: categorySchema.optional(),
+});
+export type PostCategory = z.infer<typeof postCategorySchema>;
 export const categoryPostSchema = z.object({
   id: z.string().or(z.number()),
   title: z.string(),
@@ -37,7 +45,5 @@ export const categoryPostSchema = z.object({
   description: z.string().optional().nullable().default(null),
   createdAt: z.string().datetime().optional(),
   updateAt: z.string().datetime().optional(),
-  posts: z.array(postSchema),
+  posts: z.array(postCategorySchema),
 });
-
-export type CategoryPost = z.infer<typeof categoryPostSchema>;

@@ -6,10 +6,10 @@ import { FC } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Post } from '@/lib/types';
+import { PostCategory } from '@/lib/schemas/post.schema';
 import { cn } from '@/lib/utils';
 
-const PostCard: FC<{ post: Post; className?: string }> = ({
+const PostCard: FC<{ post: PostCategory; className?: string }> = ({
   post,
   className,
 }) => {
@@ -29,10 +29,12 @@ const PostCard: FC<{ post: Post; className?: string }> = ({
         </CardHeader>
       )}
       <CardContent>
-        <CardTitle className='pt-3'>{post.title}</CardTitle>
+        <CardTitle className="pt-3">{post.title}</CardTitle>
       </CardContent>
       <CardFooter className="justify-between">
-        <Badge variant="outline">{post.category} </Badge>
+        {post.category && (
+          <Badge variant="outline">{post.category.title} </Badge>
+        )}
         <div className="flex items-center gap-1.5">
           <Button
             aria-label={`View ${post.nbComments} comments`}

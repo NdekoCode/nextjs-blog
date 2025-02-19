@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { Post } from '@/lib/types';
+import { PostCategory } from '@/lib/schemas/post.schema';
 
 import PostCard from './PostCard';
 
-const PostList: FC<{ posts?: Post[] }> = ({ posts }) => {
+const PostList: FC<{ posts?: PostCategory[] }> = ({ posts }) => {
   if (!posts) return null;
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center-center gap-3 sm:gap-4 lg:gap-5">

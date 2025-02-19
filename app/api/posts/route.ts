@@ -4,7 +4,27 @@ import prisma from '@/lib/connect';
 
 export const GET = async (req: NextRequest, res: NextResponse) => {
   try {
-    const posts = await prisma?.post.findMany();
+    let posts = [];
+    const { searchParams } = new URL(req.url);
+    const categorySlug = searchParams?.get("category");
+    if (categorySlug) {
+      posts = await prisma?.post.findMany({
+        where: {
+          category: {
+            slug: categorySlug,
+          },
+        },
+        include: {
+          category: true,
+        },
+      });
+    } else {
+      posts = await prisma?.post.findMany({
+        include: {
+          category: true,
+        },
+      });
+    }
     return NextResponse.json(posts, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(

@@ -1,20 +1,15 @@
 import { NextRequest } from 'next/server';
 
+import { getCategories } from '@/lib/api/categories';
+
 export const GET = async (
   req: NextRequest,
   { params }: { params: { slug?: string } }
 ) => {
-  const categorySlug = params?.slug;
+  const categorySlug = params?.slug
   if (!categorySlug)
     return Response.json({ error: "Not Data Found" }, { status: 404 });
-  const category =await prisma?.category.findUnique({
-    where: {
-      slug: categorySlug,
-    },
-    include: {
-      posts: true,
-    },
-  });  
+  const category =await getCategories(categorySlug);
 
   if (!category)
     return Response.json({ error: "Not Data Found" }, { status: 404 });
