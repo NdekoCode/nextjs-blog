@@ -2,17 +2,18 @@ import { z } from 'zod';
 
 export interface ICategory {
   id: string | number;
-  name?: string;
+  title?: string;
   slug?: string;
 }
 export const categorySchema = z.object({
   id: z.string().or(z.number()),
-  name: z.string(),
+  title: z.string(),
   slug: z.string(),
+  description: z.string().optional().nullable().default(null),
   createdAt: z.string().datetime().optional(),
   updateAt: z.string().datetime().optional(),
 });
-
+export const categoriesSchema = z.array(categorySchema);
 export const postSchema = z.object({
   id: z.number().or(z.string()),
   category: z.string().optional(),
