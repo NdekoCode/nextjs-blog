@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { postSchema } from '../schemas/post.schema';
+
 export const registerFormSchema = z
   .object({
     firstName: z
@@ -54,3 +56,4 @@ export const loginFormDefaultValue: LoginFormType = {
   email: "",
   password: "",
 };
+export type PostFormType = z.infer<typeof postSchema>

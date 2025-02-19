@@ -1,6 +1,7 @@
+'use client';;
 import Link from 'next/link';
 
-import { CATEGORIES } from '@/lib/data/constant';
+import { useCategories } from '@/lib/hooks/useCategories';
 
 import {
   NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink,
@@ -8,22 +9,28 @@ import {
 } from './navigation-menu';
 
 const HeaderMenu = () => {
+  const {
+    data: categories,
+    isLoading: isLoadingCategories,
+    isError: isErrorCategories,
+    error: errorCategories,
+  } = useCategories();
   return (
     <NavigationMenu className='hidden lg:flex'>
       <NavigationMenuList className='gap-2'>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
           <NavigationMenuContent>
-            {CATEGORIES && CATEGORIES.length > 0 ? (
+            {categories && categories.length > 0 ? (
               <ul className="flex flex-col gap-3 p-3">
-                {CATEGORIES.map((category, index) => (
+                {categories.map((category, index) => (
                   <li key={index}>
                     <NavigationMenuLink asChild>
                       <Link
                         href={`/categories/${category.slug}`}
-                        className="p-3"
+                        className="p-3 text-nowrap"
                       >
-                        {category.name}
+                        {category.title}
                       </Link>
                     </NavigationMenuLink>
                   </li>

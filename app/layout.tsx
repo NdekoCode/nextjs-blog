@@ -5,6 +5,7 @@ import localFont from 'next/font/local';
 
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
+import ReactQueryWrapper from '@/components/layout/ReactQueryWrapper';
 import { ThemeProvider } from '@/components/theme-provider';
 
 const geistSans = localFont({
@@ -39,9 +40,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main className="container">{children}</main>
-          <Footer/>
+          <ReactQueryWrapper>
+            <Header />
+            <main className="container">{children}</main>
+            <Footer />
+          </ReactQueryWrapper>
         </ThemeProvider>
       </body>
     </html>

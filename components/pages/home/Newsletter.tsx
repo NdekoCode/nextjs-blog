@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import {
-    Form, FormControl, FormField, FormItem, FormLabel, FormMessage
+  Form, FormControl, FormField, FormItem, FormLabel, FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -50,7 +50,7 @@ const Newsletter = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className='w-full py-4 text-xl font-medium'>Subscribe to our newsletter</Button>
+          <Button aria-label="Subscribe to our newsletter" type="submit" className='w-full py-4 text-xl font-medium'>Subscribe to our newsletter</Button>
         </form>
       </Form>
     </div>

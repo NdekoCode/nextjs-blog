@@ -26,10 +26,10 @@ const Page = () => {
     <div className="flex flex-col gap-y-10 items-center">
       <PageTitle title="Login or Register" />
       <div className="flex flex-col gap-y-4 w-full">
-        <Button className="w-full">
+        <Button aria-label="Signin with Github" className="w-full">
           <Github className="mr-3" /> Signin with Github
         </Button>
-        <Button className="w-full">
+        <Button aria-label="Signin with Google" className="w-full">
           <Mail className="mr-3" /> Signin with Google
         </Button>
       </div>
@@ -68,7 +68,7 @@ const Page = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button aria-label="Submit" type="submit">Submit</Button>
         </form>
       </Form>
     </div>

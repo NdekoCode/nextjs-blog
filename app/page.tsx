@@ -1,11 +1,32 @@
+"use client";;
 import Link from 'next/link';
 
+import Loading from '@/components/Loading';
 import Newsletter from '@/components/pages/home/Newsletter';
 import PostList from '@/components/pages/home/PostList';
+import { BlockSkeleton } from '@/components/skeleton';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { CATEGORIES, POSTS } from '@/lib/data/constant';
+import { useCategories } from '@/lib/hooks/useCategories';
+import { usePosts } from '@/lib/hooks/usePosts';
 
 export default function Home() {
+  const { data: posts, isLoading, isError, error } = usePosts();
+  const {
+    data: categories,
+    isLoading: isLoadingCategories,
+    isError: isErrorCategories,
+    error: errorCategories,
+  } = useCategories();
+  if (isLoading) return <Loading />;
+  if (isError ||isErrorCategories)
+    return (
+      <div>
+        {error?.message}{" "}
+        <span className="text-red-500">{JSON.stringify(error)} </span>
+        CATEGORIES ERROR: {errorCategories?.message}{" "}
+        <span className="text-red-500">{JSON.stringify(errorCategories)} </span>
+      </div>
+    );
   return (
     <section className="flex flex-col gap-y-10 sm:gap-y-12 md:gap-y-16 lg:gap-y-20">
       {/* Hero */}
@@ -18,21 +39,30 @@ export default function Home() {
 
       {/* Categories */}
       <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 lg:gap-5">
-        {CATEGORIES.map((category) => (
-          <Button variant="outline" key={category.id} asChild>
-            <Link
-              href={`/categories/${category.slug}`}
-              className={buttonVariants({ variant: "link" })}
+        {isLoadingCategories ? (
+          <BlockSkeleton />
+        ) : (
+          categories?.map((category) => (
+            <Button
+              variant="outline"
+              aria-label={`View all posts in "${category.title}" category`}
+              key={category.id}
+              asChild
             >
-              {category.name}
-            </Link>
-          </Button>
-        ))}
+              <Link
+                href={`/categories/${category.slug}`}
+                className={buttonVariants({ variant: "link" })}
+              >
+                {category.title}
+              </Link>
+            </Button>
+          ))
+        )}
       </div>
       {/* End Categories */}
 
       {/* Posts */}
-      <PostList posts={POSTS} />
+      <PostList posts={posts} />
     </section>
   );
 }
