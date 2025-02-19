@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import prisma from '@/lib/connect';
+import { postSchema } from '@/lib/schemas/post.schema';
 
 export const GET = async (
   req: NextRequest,
@@ -19,7 +20,8 @@ export const GET = async (
     });
     if (!post)
       return Response.json({ error: "No Data found" }, { status: 404 });
-    return Response.json(post, { status: 200 });
+    const data = postSchema.parse(post)
+    return Response.json(data, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Something went wrong" },

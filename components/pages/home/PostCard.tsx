@@ -15,24 +15,29 @@ const PostCard: FC<{ post: Post; className?: string }> = ({
 }) => {
   return (
     <Card className={cn("group relative", className)}>
-      <CardHeader>
-        <div className="h-72 w-full overflow-hidden rounded-lg">
-          <Image
-            className="w-full h-full group-hover:scale-110 transition-transform duration-300  object-cover"
-            width={1280}
-            height={750}
-            alt={post.title}
-            src={post.image}
-          />
-        </div>
-      </CardHeader>
+      {post?.image && (
+        <CardHeader>
+          <div className="h-72 w-full overflow-hidden rounded-lg">
+            <Image
+              className="w-full h-full group-hover:scale-110 transition-transform duration-300  object-cover"
+              width={1280}
+              height={750}
+              alt={post.title}
+              src={post.image}
+            />
+          </div>
+        </CardHeader>
+      )}
       <CardContent>
-        <CardTitle>{post.title}</CardTitle>
+        <CardTitle className='pt-3'>{post.title}</CardTitle>
       </CardContent>
       <CardFooter className="justify-between">
         <Badge variant="outline">{post.category} </Badge>
         <div className="flex items-center gap-1.5">
-          <Button aria-label={`View ${post.nbComments} comments`} variant="ghost">
+          <Button
+            aria-label={`View ${post.nbComments} comments`}
+            variant="ghost"
+          >
             <MessageCircle /> <span>{post.nbComments}</span>
           </Button>
           <Button aria-label={`View ${post.nbViews} views`} variant="ghost">
@@ -40,7 +45,10 @@ const PostCard: FC<{ post: Post; className?: string }> = ({
           </Button>
         </div>
       </CardFooter>
-      <Link href={`/posts/${post.slug}`} className='absolute inset-0 opacity-0'/>
+      <Link
+        href={`/posts/${post.slug}`}
+        className="absolute inset-0 opacity-0"
+      />
     </Card>
   );
 };

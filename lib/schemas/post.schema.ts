@@ -13,34 +13,18 @@ export const categorySchema = z.object({
   updateAt: z.string().datetime().optional(),
 });
 
-export type Post = {
-  id: number;
-  category: string;
-  title: string;
-  image: string;
-  caption: string;
-  date: string | Date;
-  minutesToRead: number;
-  author: string;
-  nbViews: number;
-  nbComments: number;
-  slug: string;
-  content?: string;
-};
 export const postSchema = z.object({
-  id: z.number(),
-  category: z.string(),
+  id: z.number().or(z.string()),
+  category: z.string().optional(),
   title: z.string(),
-  image: z.string().optional(),
+  image: z.string().nullable().optional().default(null),
   caption: z.string().optional(),
   date: z.string().or(z.date()).optional(),
-  minutesToRead: z.number(),
+  minutesToRead: z.number().optional(),
   author: z.string().optional(),
   nbViews: z.number().default(0),
   nbComments: z.number().default(0),
   slug: z.string(),
-  content: z.string().optional(),
+  content: z.string(),
 });
-export const postsSchema = z.object({
-  posts: z.array(postSchema),
-});
+export const postsSchema = z.array(postSchema)

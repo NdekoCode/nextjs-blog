@@ -1,3 +1,4 @@
+'use client';
 import { Eye, MessageCircle } from 'lucide-react';
 import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
@@ -5,13 +6,13 @@ import { notFound } from 'next/navigation';
 import { Avatar } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { POSTS } from '@/lib/data/constant';
+import { usePost } from '@/lib/hooks/usePost';
 import { AvatarFallback } from '@radix-ui/react-avatar';
 
 const SinglePost: NextPage<{ params: { slug: string } }> = ({ params }) => {
   const slug = params?.slug;
   if (!slug) return notFound();
-  const post = POSTS.find((post) => post.slug === slug);
+  const { data:post, isLoading, isError, error,isFetching } = usePost(slug);
   if (!post) return notFound();
   return (
     <section className="flex flex-col gap-y-10 sm:gap-y-12 md:gap-y-16 lg:gap-y-20">
@@ -33,13 +34,13 @@ const SinglePost: NextPage<{ params: { slug: string } }> = ({ params }) => {
           <div className="flex gap-3">
             <Avatar className="shrink-0 size-10">
               <AvatarFallback className="uppercase text-white font-medium size-full items-center flex justify-center bg-green-700">
-                {post.author[0]}
+                {post.author?.[0]}
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col h-full">
               <h6>{post.author}</h6>
               <small className="text-xs mt-auto text-gray-400">
-                Publie on {post.date.toLocaleString()}
+                Publie on {post.date?.toLocaleString()}
               </small>
             </div>
           </div>

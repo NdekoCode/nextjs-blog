@@ -1,11 +1,18 @@
+'use client';
+
 import Link from 'next/link';
 
+import Loading from '@/components/Loading';
 import Newsletter from '@/components/pages/home/Newsletter';
 import PostList from '@/components/pages/home/PostList';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { CATEGORIES, POSTS } from '@/lib/data/constant';
+import { CATEGORIES } from '@/lib/data/constant';
+import { usePosts } from '@/lib/hooks/usePosts';
 
 export default function Home() {
+  const {data:posts,isLoading,isError,error} = usePosts()
+  if(isLoading) return(<Loading/>)
+  if(isError) return <div>{error?.message} <span className='text-red-500'>{JSON.stringify(error)} </span></div>
   return (
     <section className="flex flex-col gap-y-10 sm:gap-y-12 md:gap-y-16 lg:gap-y-20">
       {/* Hero */}
@@ -32,7 +39,7 @@ export default function Home() {
       {/* End Categories */}
 
       {/* Posts */}
-      <PostList posts={POSTS} />
+      <PostList posts={posts} />
     </section>
   );
 }
