@@ -6,6 +6,14 @@ export const CATEGORIES: ICategory[] = [
     slug: "next.js",
   },
   {
+    name: "React Native",
+    slug: "react-native",
+  },
+  {
+    name: "CSS",
+    slug: "css",
+  },
+  {
     name: "Nest.js",
     slug: "nest.js",
   },

@@ -5,7 +5,6 @@ import PageTitle from '@/components/PageTitle';
 import { CATEGORIES, POSTS } from '@/lib/data/constant';
 
 const CategoriesPage = ({ params }: { params: { slug: string } }) => {
-  console.log(params);
   const slug = params?.slug ?? "";
   if (!slug) return notFound();
   const category = CATEGORIES.find((d) => d.slug === slug);

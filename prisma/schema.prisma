@@ -34,4 +34,16 @@ model Post {
   // comment # comments[]
 
   // category # categories
+  categorySlug String
+  category     Category @relation(fields: [categorySlug], references: [slug])
+  @@index([categorySlug])
+}
+
+model Category {
+  id          String  @id @default(cuid())
+  title       String
+  slug        String  @unique
+  description String?
+  image       String?
+  posts       Post[]
 }
