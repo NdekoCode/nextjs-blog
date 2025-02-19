@@ -4,8 +4,9 @@ import Link from 'next/link';
 import Loading from '@/components/Loading';
 import Newsletter from '@/components/pages/home/Newsletter';
 import PostList from '@/components/pages/home/PostList';
+import { BlockSkeleton } from '@/components/skeleton';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { useCategory } from '@/lib/hooks/useCategories';
+import { useCategories } from '@/lib/hooks/useCategories';
 import { usePosts } from '@/lib/hooks/usePosts';
 
 export default function Home() {
@@ -15,7 +16,7 @@ export default function Home() {
     isLoading: isLoadingCategories,
     isError: isErrorCategories,
     error: errorCategories,
-  } = useCategory();
+  } = useCategories();
   if (isLoading) return <Loading />;
   if (isError ||isErrorCategories)
     return (

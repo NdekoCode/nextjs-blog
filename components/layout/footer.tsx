@@ -1,8 +1,9 @@
 "use client";;
 import Link from 'next/link';
 
-import { useCategory } from '@/lib/hooks/useCategories';
+import { useCategories } from '@/lib/hooks/useCategories';
 
+import { BlockSkeleton } from '../skeleton';
 import { Button, buttonVariants } from '../ui/button';
 import AppLogo from './AppLogo';
 
@@ -12,7 +13,7 @@ const Footer = () => {
     isLoading: isLoadingCategories,
     isError: isErrorCategories,
     error: errorCategories,
-  } = useCategory();
+  } = useCategories();
   
   if (isErrorCategories) return <span className="text-red-500">{errorCategories?.message}</span>;
   return (
