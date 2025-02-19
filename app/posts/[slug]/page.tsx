@@ -3,6 +3,7 @@ import { Eye, MessageCircle } from 'lucide-react';
 import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 
+import Loading from '@/components/Loading';
 import { Avatar } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -13,6 +14,8 @@ const SinglePost: NextPage<{ params: { slug: string } }> = ({ params }) => {
   const slug = params?.slug;
   if (!slug) return notFound();
   const { data:post, isLoading, isError, error,isFetching } = usePost(slug);
+  if(isLoading) return <Loading/>
+  if(isError) return <span className='text-red-500'>{error.message}</span>
   if (!post) return notFound();
   return (
     <section className="flex flex-col gap-y-10 sm:gap-y-12 md:gap-y-16 lg:gap-y-20">
