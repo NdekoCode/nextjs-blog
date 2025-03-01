@@ -5,6 +5,7 @@ import {
     DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel,
     DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
+import { useAuth } from '@/lib/hooks/useAuth';
 import { IAuthUser } from '@/lib/types';
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
@@ -13,10 +14,14 @@ export const UserAuthDropdownMenu: FC<{
   user?: IAuthUser | null;
 }> = ({ user }) => {
   if (!user) return null;
+  const { logOut } = useAuth();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="p-0 border-none size-fit aspect-square rounded-full">
+        <Button
+          variant="outline"
+          className="p-0 border-none size-fit aspect-square rounded-full"
+        >
           {user?.image ? (
             <Avatar className="w-8 h-8">
               <AvatarImage src={user?.image} />
@@ -24,7 +29,7 @@ export const UserAuthDropdownMenu: FC<{
             </Avatar>
           ) : (
             <svg
-              className="w-10 h-10 me-3 text-gray-200 dark:text-gray-700"
+              className="size-8 me-3 text-gray-200 dark:text-gray-700"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -49,7 +54,7 @@ export const UserAuthDropdownMenu: FC<{
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={logOut}>
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>

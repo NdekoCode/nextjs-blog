@@ -1,7 +1,12 @@
-import { useSession } from 'next-auth/react';
+'use client';
+import { signOut, useSession } from 'next-auth/react';
+import { useCallback } from 'react';
 
 export const useAuth = () => {
   const { data: session, status } = useSession();
+  const logOut = useCallback(() => {
+    signOut();
+  }, []);
   const isAuthenticated = status === "authenticated";
   const isLoading = status === "loading";
   const isConnected =
@@ -11,5 +16,6 @@ export const useAuth = () => {
     isLoading,
     isConnected,
     session,
+    logOut
   };
 };
