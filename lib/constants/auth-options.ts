@@ -1,4 +1,4 @@
-import { AuthOptions } from 'next-auth';
+import { AuthOptions, getServerSession } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
@@ -44,3 +44,6 @@ export const AUTH_OPTIONS: AuthOptions = {
     
   ],
 };
+
+
+export const getAuthSession = async ()=>await getServerSession(AUTH_OPTIONS);

@@ -13,6 +13,7 @@ const PostCard: FC<{ post: PostCategory; className?: string }> = ({
   post,
   className,
 }) => {
+  if (!post) return null;
   return (
     <Card className={cn("group relative", className)}>
       {post?.image && (

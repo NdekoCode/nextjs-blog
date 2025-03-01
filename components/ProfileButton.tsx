@@ -7,7 +7,7 @@ import UserSkeleton from './UserSkeleton';
 
 const ProfileButton = () => {
   const { session, isConnected, isLoading } = useAuth();
-  console.log("🔄 Session:", session, "Status:", status);
+  console.log("🔄 Session:", session, "Status:", isConnected);
   return (
     <div>
       {isLoading ? (
