@@ -7,7 +7,7 @@ import { useAuth } from '@/lib/hooks/useAuth';
 const RequireAuth: FC<PropsWithChildren> = ({ children }) => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
-  if (!isAuthenticated) router.push("/auth/login");
+  if (!isAuthenticated) router.replace("/auth/login");
   return <>{children}</>;
 };
 
