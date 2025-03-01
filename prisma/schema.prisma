@@ -17,19 +17,20 @@ datasource db {
 
 // Models
 
-
 model User {
   id            String    @id @default(cuid())
   name          String?
-  email         String    @unique
+  firstName     String?
+  lastName      String?
+  email         String?   @unique
   image         String?
-  emailVERIFIED DateTime?
+  emailVerified DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt()
 
   accounts Account[]
   sessions Session[]
-  posts Post[]
+  posts    Post[]
 }
 
 model Account {
@@ -69,7 +70,7 @@ model Session {
 
 model VerificationToken {
   identifier String
-  token      String @unique
+  token      String   @unique
   expires    DateTime
 
   @@id([identifier, token])
@@ -90,12 +91,13 @@ model Post {
   updateAt   DateTime @updatedAt()
 
   // user #author
-  author User @relation(fields:[authorId],references:[id], onDelete:Cascade)
-  // comment # comments[]
-  @@index([authorId])
+  author       User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   // category # categories
   categorySlug String
   category     Category @relation(fields: [categorySlug], references: [slug])
+
+  // comment # comments[]
+  @@index([authorId])
   @@index([categorySlug])
 }
 

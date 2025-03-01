@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import ProfileButton from '../ProfileButton';
 import HeaderMenu from '../ui/header-menu';
 import AppLogo from './AppLogo';
