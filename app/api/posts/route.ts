@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import prisma from '@/lib/connect';
+import { getAuthSession } from '@/lib/constants/auth-options';
 
 export const GET = async (req: NextRequest, res: NextResponse) => {
   try {
+    const session = await getAuthSession();
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     let posts = [];
     const { searchParams } = new URL(req.url);
     const categorySlug = searchParams?.get("category");

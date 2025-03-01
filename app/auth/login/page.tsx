@@ -1,6 +1,7 @@
 "use client";
 
 import { Github, Mail } from 'lucide-react';
+import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 
 import PageTitle from '@/components/PageTitle';
@@ -21,15 +22,17 @@ const Page = () => {
   const onSubmit = (values: LoginFormType) => {
     console.log("Form Values:", JSON.stringify(values));
   };
-
+  const onSignIn = (provider: string | 'github' | 'google') => {
+    signIn(provider);
+  };
   return (
     <div className="flex flex-col gap-y-10 items-center">
       <PageTitle title="Login or Register" />
       <div className="flex flex-col gap-y-4 w-full">
-        <Button aria-label="Signin with Github" className="w-full">
+        <Button aria-label="Signin with Github" className="w-full" onClick={()=>onSignIn('github')}>
           <Github className="mr-3" /> Signin with Github
         </Button>
-        <Button aria-label="Signin with Google" className="w-full">
+        <Button aria-label="Signin with Google" className="w-full" onClick={()=>onSignIn('google')}>
           <Mail className="mr-3" /> Signin with Google
         </Button>
       </div>
@@ -68,7 +71,9 @@ const Page = () => {
               </FormItem>
             )}
           />
-          <Button aria-label="Submit" type="submit">Submit</Button>
+          <Button aria-label="Submit" type="submit">
+            Submit
+          </Button>
         </form>
       </Form>
     </div>

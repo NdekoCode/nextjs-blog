@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useCategories } from '@/lib/hooks/useCategories';
 
 import {
-  NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink,
-  NavigationMenuList, NavigationMenuTrigger
+    NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink,
+    NavigationMenuList, NavigationMenuTrigger
 } from './navigation-menu';
 
 const HeaderMenu = () => {
@@ -41,7 +41,7 @@ const HeaderMenu = () => {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link href="/add-post" className="text-sm">
+            <Link href="/posts/add-post" className="text-sm">
               Add a post
             </Link>
           </NavigationMenuLink>
