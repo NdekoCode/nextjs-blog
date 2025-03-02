@@ -7,7 +7,7 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 
 export const AUTH_OPTIONS: AuthOptions = {
   debug: true,
-  adapter:PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
       clientId: String(process.env.GITHUB_CLIENT_ID) || "",
@@ -29,21 +29,30 @@ export const AUTH_OPTIONS: AuthOptions = {
         },
       },
       profile(profile) {
-        console.log("🔄 Profil Google:", JSON.stringify(profile,null,2));
+        console.log("🔄 Profil Google:", JSON.stringify(profile, null, 2));
         return {
           id: profile.sub,
-          name:profile.name,
-          firstName:profile.given_name|| "",
-          lastName:profile.family_name|| "",
+          name: profile.name,
+          firstName: profile.given_name || "",
+          lastName: profile.family_name || "",
           email: profile.email || "",
           image: profile.picture,
           emailVerified: Boolean(profile.email_verified) ? new Date() : null,
         };
       },
     }),
-    
   ],
 };
 
+export const getAuthSession = async () => await getServerSession(AUTH_OPTIONS);
 
-export const getAuthSession = async ()=>await getServerSession(AUTH_OPTIONS);
+export const auth = async () => {
+  const session = await getAuthSession();
+  const isAuthenticated = session?.user;
+  const isConnected = isAuthenticated && session?.user && session.user.email;
+  return {
+    isAuthenticated,
+    isConnected,
+    session,
+  };
+};
