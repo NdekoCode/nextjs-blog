@@ -8,6 +8,7 @@ import Header from '@/components/layout/header';
 import AuthProvider from '@/components/providers/auth-provider';
 import ReactQueryWrapper from '@/components/providers/ReactQueryWrapper';
 import { ThemeProvider } from '@/components/providers/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -46,6 +47,7 @@ export default function RootLayout({
               <Header />
               <main className="container">{children}</main>
               <Footer />
+              <Toaster />
             </AuthProvider>
           </ReactQueryWrapper>
         </ThemeProvider>
