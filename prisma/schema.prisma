@@ -81,7 +81,7 @@ model Post {
   title   String
   content String @db.Text
 
-  authorId String @unique
+  userEmail String @unique
 
   slug       String   @unique
   image      String?
@@ -91,21 +91,30 @@ model Post {
   updateAt   DateTime @updatedAt()
 
   // user #author
-  author       User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author     User           @relation(fields: [userEmail], references: [email], onDelete: Cascade)
   // category # categories
-  categorySlug String
-  category     Category @relation(fields: [categorySlug], references: [slug])
+  categories PostCategory[]
 
   // comment # comments[]
-  @@index([authorId])
-  @@index([categorySlug])
+  @@index([userEmail])
 }
 
 model Category {
-  id          String  @id @default(cuid())
+  id          String         @id @default(cuid())
   title       String
-  slug        String  @unique
+  slug        String         @unique
   description String?
   image       String?
-  posts       Post[]
+  posts       PostCategory[]
+}
+
+model PostCategory {
+  postId     String
+  categoryId String
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade) // If a Post is deleted, the corresponding row in PostCategory is deleted. Categories should not be deleted as they may be used by other Posts.
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade) // If a Category is deleted, Posts should not be deleted, only the relation in PostCategory.
+
+  @@id([postId, categoryId])
+  @@index([postId])
+  @@index([categoryId])
 }

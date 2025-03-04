@@ -18,7 +18,7 @@ const SinglePost: NextPage<{ params: { slug: string } }> = ({ params }) => {
   if(isError) return <span className='text-red-500'>{error.message}</span>
   if (!post) return notFound();
   return (
-    <section className="flex flex-col gap-y-10 sm:gap-y-12 md:gap-y-16 lg:gap-y-20">
+    <section className="flex flex-col gap-y-10 sm:gap-y-12 md:gap-y-16 lg:gap-y-20 max-w-5xl w-full mx-auto">
       {/* Hero */}
       <div
         className="container mt-10 bg-hero bg-cover bg-center bg-no-repeat rounded-lg aspect-square md:aspect-[2.4/1] overflow-hidden flex flex-col items-center justify-center p-3 sm:p-5 md:p-6 lg:p-8"
@@ -59,7 +59,7 @@ const SinglePost: NextPage<{ params: { slug: string } }> = ({ params }) => {
         </div>
         <Separator />
         {post.content && (
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
+          <div className=' prose lg:prose-xl mt-12 dark:prose-p:text-gray-300 dark:prose-h2:text-gray-100 dark:prose-h3:text-gray-100 dark:prose-h4:text-gray-100 dark:prose-h5:text-gray-100 dark:prose-h6:text-gray-100 dark:prose-a:text-gray-100 dark:prose-a:underline' dangerouslySetInnerHTML={{ __html: post.content }} />
         )}
       </div>
       {/* End Hero */}

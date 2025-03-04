@@ -1,18 +1,18 @@
-'use client';
+"use client";
 import { useRouter } from 'next/navigation';
 import { FC, PropsWithChildren, useEffect, useState } from 'react';
 
 import { useAuth } from '@/lib/hooks/useAuth';
 
-const RequireAuth: FC<PropsWithChildren> = ({ children }) => {
+const IsAuthenticated: FC<PropsWithChildren> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
   const [shouldRender, setShouldRender] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (!isLoading) {
-      if (!isAuthenticated) {
-        router.replace("/auth/login");
+      if (isAuthenticated) {
+        router.replace("/");
       } else {
         setShouldRender(true);
       }
@@ -24,4 +24,4 @@ const RequireAuth: FC<PropsWithChildren> = ({ children }) => {
   return <>{children}</>;
 };
 
-export default RequireAuth;
+export default IsAuthenticated;
