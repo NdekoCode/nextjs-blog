@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import 'react-quill/dist/quill.snow.css';
 
 import { CloudUpload, Paperclip } from 'lucide-react';
@@ -19,7 +19,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useCategories } from '@/lib/hooks/useCategories';
+import { IPostDto } from '@/lib/schemas/dto/post.dto';
+import { createPost } from '@/lib/services/post.service';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 
 import { Label } from '../ui/label';
 import MultipleSelector from '../ui/multiselect';
@@ -68,24 +71,41 @@ export default function WritePostForm() {
         })) ?? [],
     },
   });
-
+  const mutation = useMutation({
+    mutationFn: (formValues: IPostDto) => createPost(formValues),
+    mutationKey: ["createPost"],
+    onSuccess: () => toast.success("Post created successfully"),
+    onError: (error: any) =>
+      toast.error("Failed to create post", {
+        description: JSON.stringify(error, null, 2),
+      }),
+  });
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const formValues = {
-        ...values,
-        image: image,
-        categories: values.categories.map((category) => category.value),
-        slug: slugify(values.title, { lower: true }),
-      };
-      console.log(formValues);
+      
+      if (!values.title || !values.content || !values.categories || !Array.isArray(values.categories) || values.categories.length === 0) {
+        toast.error("Missing required fields");
+        return;
+    }
+    const formValues = {
+      ...values,
+      image: image,
+      categories: values.categories.map((category) => category.value),
+      slug: slugify(values.title, { lower: true }),
+    };
       toast(
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(formValues, null, 2)}</code>
+          <code className="text-white">
+            {JSON.stringify(formValues, null, 2)}
+          </code>
         </pre>
       );
+      mutation.mutate(formValues)
     } catch (error) {
       console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
+      toast.error("Failed to submit the form. Please try again.", {
+        description: JSON.stringify(error),
+      });
     }
   }
 
