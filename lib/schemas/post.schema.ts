@@ -35,7 +35,7 @@ export type CategoryPost = z.infer<typeof categoryPostSchema>;
 
 export const postCategorySchema = z.object({
   ...postSchema.shape,
-  category: categorySchema.optional(),
+  categories: z.array(categorySchema),
 });
 export type PostCategory = z.infer<typeof postCategorySchema>;
 export const categoryPostSchema = z.object({

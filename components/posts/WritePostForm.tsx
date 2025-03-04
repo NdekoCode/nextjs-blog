@@ -1,8 +1,11 @@
-"use client";
+"use client";;
+import 'react-quill/dist/quill.snow.css';
+
 import { CloudUpload, Paperclip } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import ReactQuill from 'react-quill';
 import slugify from 'slugify';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -15,7 +18,6 @@ import {
   Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { useCategories } from '@/lib/hooks/useCategories';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -175,7 +177,7 @@ export default function WritePostForm() {
             <FormItem>
               <FormLabel>Post Content</FormLabel>
               <FormControl>
-                <Textarea
+                <ReactQuill
                   placeholder="Content of the post"
                   className="resize-none"
                   {...field}
