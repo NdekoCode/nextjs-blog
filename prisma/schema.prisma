@@ -81,7 +81,7 @@ model Post {
   title   String
   content String @db.Text
 
-  userEmail String @unique
+  userEmail String
 
   slug       String   @unique
   image      String?

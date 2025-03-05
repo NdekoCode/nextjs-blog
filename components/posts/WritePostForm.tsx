@@ -1,8 +1,9 @@
-"use client";
+"use client";;
 import 'react-quill/dist/quill.snow.css';
 
 import { CloudUpload, Paperclip } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import ReactQuill from 'react-quill';
@@ -12,15 +13,16 @@ import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
 import {
-  FileInput, FileUploader, FileUploaderContent, FileUploaderItem
+    FileInput, FileUploader, FileUploaderContent, FileUploaderItem
 } from '@/components/ui/file-upload';
 import {
-  Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
+    Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useCategories } from '@/lib/hooks/useCategories';
 import { IPostDto } from '@/lib/schemas/dto/post.dto';
 import { createPost } from '@/lib/services/post.service';
+import { uploadImage } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 
@@ -45,6 +47,11 @@ const formSchema = z.object({
 
 export default function WritePostForm() {
   const [image, setImage] = useState<File | null>(null);
+  const router = useRouter();
+  const [imageData, setImageData] = useState<{
+    path: string;
+    objectUrl: string;
+  } | null>(null);
   const [values, setValues] = useState<{ label: string; value: string }[]>([]);
 
   const { data: categories } = useCategories();
@@ -74,25 +81,36 @@ export default function WritePostForm() {
   const mutation = useMutation({
     mutationFn: (formValues: IPostDto) => createPost(formValues),
     mutationKey: ["createPost"],
-    onSuccess: () => toast.success("Post created successfully"),
-    onError: (error: any) =>
+    onSuccess: (data, variables) => {
+      toast.success("Post created successfully");
+      router.push(`/posts/${variables.slug}`);
+    },
+    onError: (error: any, variables) => {
+      console.error("Failed to create post", error);
       toast.error("Failed to create post", {
-        description: JSON.stringify(error, null, 2),
-      }),
+        description: JSON.stringify({ error, variables }, null, 2),
+      });
+    },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      
-      if (!values.title || !values.content || !values.categories || !Array.isArray(values.categories) || values.categories.length === 0) {
+      if (
+        !values.title ||
+        !values.content ||
+        !values.categories ||
+        !Array.isArray(values.categories) ||
+        values.categories.length === 0
+      ) {
         toast.error("Missing required fields");
         return;
-    }
-    const formValues = {
-      ...values,
-      image: image,
-      categories: values.categories.map((category) => category.value),
-      slug: slugify(values.title, { lower: true }),
-    };
+      }
+      const imagePath = await uploadImage(values.image);
+      const formValues = {
+        ...values,
+        image: imagePath,
+        categories: values.categories.map((category) => category.value),
+        slug: slugify(values.title, { lower: true }),
+      };
       toast(
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">
@@ -100,7 +118,7 @@ export default function WritePostForm() {
           </code>
         </pre>
       );
-      mutation.mutate(formValues)
+      mutation.mutate(formValues);
     } catch (error) {
       console.error("Form submission error", error);
       toast.error("Failed to submit the form. Please try again.", {
@@ -144,6 +162,10 @@ export default function WritePostForm() {
                       const selectedImage = value[0];
                       setImage(selectedImage);
                       field.onChange(selectedImage); // Mise à jour du champ image
+                      setImageData({
+                        path: selectedImage.name,
+                        objectUrl: URL.createObjectURL(selectedImage),
+                      });
                     } else {
                       setImage(null);
                       field.onChange(null);
@@ -172,7 +194,7 @@ export default function WritePostForm() {
                       <FileUploaderItem key={image.name} index={0}>
                         <Paperclip className="h-4 w-4 stroke-current" />
                         <Image
-                          src={URL.createObjectURL(image)}
+                          src={imageData?.objectUrl ?? ""}
                           className="h-4 w-4 object-cover"
                           alt={image.name}
                           width={100}
@@ -243,7 +265,17 @@ export default function WritePostForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          className="flex items-center gap-2"
+          disabled={mutation.isPending}
+        >
+          {mutation.isPending ? (
+            <span>Creating post...</span>
+          ) : (
+            <span>Submit</span>
+          )}
+        </Button>
       </form>
     </Form>
   );
