@@ -79,10 +79,10 @@ export const POST = async (req: NextRequest) => {
   try {
     // 2. Récupération et validation des donnée du corps de la requête
     const body = (await req.json()) as IPostDto;
-    const { title, content, slug, categories: categoryIds } = body;
+    const { title, content, slug, categories: categoryIds, image } = body;
 
     // Vérifier que les champs obligatoires sont fournis
-    if (!title || !content || !slug) {
+    if (!title || !content || !slug || !image) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -110,8 +110,7 @@ export const POST = async (req: NextRequest) => {
 
     // Vérifier si les catégories existent dans la base de données
     const existingCategories = await prisma.category.findMany({
-      where: { id: { in: categoryIds } },// "Trouve toutes les catégories dont l'ID est dans le tableau categoryIds", donc si categoryIds = [1, 2, 3], alors il va chercher les catégories avec les id 1, 2 et 3
-
+      where: { id: { in: categoryIds } }, // "Trouve toutes les catégories dont l'ID est dans le tableau categoryIds", donc si categoryIds = [1, 2, 3], alors il va chercher les catégories avec les id 1, 2 et 3
     });
 
     if (existingCategories.length !== categoryIds.length) {
@@ -122,12 +121,15 @@ export const POST = async (req: NextRequest) => {
     }
 
     // 5. Création du post
+    // On upload l'image
+    
     // Créer le post avec les catégories associées
     const post = await prisma.post.create({
       data: {
         slug,
         title,
         content,
+        image: image as string,
         nbViews: 0,
         nbComments: 0,
         userEmail: session.user.email as string,

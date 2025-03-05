@@ -13,15 +13,16 @@ import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
 import {
-  FileInput, FileUploader, FileUploaderContent, FileUploaderItem
+    FileInput, FileUploader, FileUploaderContent, FileUploaderItem
 } from '@/components/ui/file-upload';
 import {
-  Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
+    Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useCategories } from '@/lib/hooks/useCategories';
 import { IPostDto } from '@/lib/schemas/dto/post.dto';
 import { createPost } from '@/lib/services/post.service';
+import { uploadImage } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 
@@ -84,12 +85,14 @@ export default function WritePostForm() {
       toast.success("Post created successfully");
       router.push(`/posts/${variables.slug}`);
     },
-    onError: (error: any) =>
+    onError: (error: any, variables) => {
+      console.error("Failed to create post", error);
       toast.error("Failed to create post", {
-        description: JSON.stringify(error, null, 2),
-      }),
+        description: JSON.stringify({ error, variables }, null, 2),
+      });
+    },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       if (
         !values.title ||
@@ -101,9 +104,10 @@ export default function WritePostForm() {
         toast.error("Missing required fields");
         return;
       }
+      const imagePath = await uploadImage(values.image);
       const formValues = {
         ...values,
-        image: image,
+        image: imagePath,
         categories: values.categories.map((category) => category.value),
         slug: slugify(values.title, { lower: true }),
       };
