@@ -3,6 +3,7 @@ import 'react-quill/dist/quill.snow.css';
 
 import { CloudUpload, Paperclip } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import ReactQuill from 'react-quill';
@@ -45,6 +46,11 @@ const formSchema = z.object({
 
 export default function WritePostForm() {
   const [image, setImage] = useState<File | null>(null);
+  const router = useRouter();
+  const [imageData, setImageData] = useState<{
+    path: string;
+    objectUrl: string;
+  } | null>(null);
   const [values, setValues] = useState<{ label: string; value: string }[]>([]);
 
   const { data: categories } = useCategories();
@@ -74,7 +80,10 @@ export default function WritePostForm() {
   const mutation = useMutation({
     mutationFn: (formValues: IPostDto) => createPost(formValues),
     mutationKey: ["createPost"],
-    onSuccess: () => toast.success("Post created successfully"),
+    onSuccess: (data, variables) => {
+      toast.success("Post created successfully");
+      router.push(`/posts/${variables.slug}`);
+    },
     onError: (error: any) =>
       toast.error("Failed to create post", {
         description: JSON.stringify(error, null, 2),
@@ -82,17 +91,22 @@ export default function WritePostForm() {
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      
-      if (!values.title || !values.content || !values.categories || !Array.isArray(values.categories) || values.categories.length === 0) {
+      if (
+        !values.title ||
+        !values.content ||
+        !values.categories ||
+        !Array.isArray(values.categories) ||
+        values.categories.length === 0
+      ) {
         toast.error("Missing required fields");
         return;
-    }
-    const formValues = {
-      ...values,
-      image: image,
-      categories: values.categories.map((category) => category.value),
-      slug: slugify(values.title, { lower: true }),
-    };
+      }
+      const formValues = {
+        ...values,
+        image: image,
+        categories: values.categories.map((category) => category.value),
+        slug: slugify(values.title, { lower: true }),
+      };
       toast(
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">
@@ -100,7 +114,7 @@ export default function WritePostForm() {
           </code>
         </pre>
       );
-      mutation.mutate(formValues)
+      mutation.mutate(formValues);
     } catch (error) {
       console.error("Form submission error", error);
       toast.error("Failed to submit the form. Please try again.", {
@@ -144,6 +158,10 @@ export default function WritePostForm() {
                       const selectedImage = value[0];
                       setImage(selectedImage);
                       field.onChange(selectedImage); // Mise à jour du champ image
+                      setImageData({
+                        path: selectedImage.name,
+                        objectUrl: URL.createObjectURL(selectedImage),
+                      });
                     } else {
                       setImage(null);
                       field.onChange(null);
@@ -172,7 +190,7 @@ export default function WritePostForm() {
                       <FileUploaderItem key={image.name} index={0}>
                         <Paperclip className="h-4 w-4 stroke-current" />
                         <Image
-                          src={URL.createObjectURL(image)}
+                          src={imageData?.objectUrl ?? ""}
                           className="h-4 w-4 object-cover"
                           alt={image.name}
                           width={100}
