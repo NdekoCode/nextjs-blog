@@ -1,4 +1,4 @@
-"use client";
+"use client";;
 import 'react-quill/dist/quill.snow.css';
 
 import { CloudUpload, Paperclip } from 'lucide-react';
@@ -27,7 +27,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 
 import { Label } from '../ui/label';
-import LoadingSpinner from '../ui/LoadingSpinner';
 import MultipleSelector from '../ui/multiselect';
 
 // Validation Schema - Accepte uniquement un fichier image
@@ -272,10 +271,7 @@ export default function WritePostForm() {
           disabled={mutation.isPending}
         >
           {mutation.isPending ? (
-            <span className="flex items-center gap-2">
-              <LoadingSpinner />
-              <span>Loading...</span>
-            </span>
+            <span>Creating post...</span>
           ) : (
             <span>Submit</span>
           )}
