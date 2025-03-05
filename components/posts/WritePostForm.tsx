@@ -27,6 +27,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 
 import { Label } from '../ui/label';
+import LoadingSpinner from '../ui/LoadingSpinner';
 import MultipleSelector from '../ui/multiselect';
 
 // Validation Schema - Accepte uniquement un fichier image
@@ -265,7 +266,20 @@ export default function WritePostForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          className="flex items-center gap-2"
+          disabled={mutation.isPending}
+        >
+          {mutation.isPending ? (
+            <span className="flex items-center gap-2">
+              <LoadingSpinner />
+              <span>Loading...</span>
+            </span>
+          ) : (
+            <span>Submit</span>
+          )}
+        </Button>
       </form>
     </Form>
   );
