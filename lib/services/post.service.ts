@@ -4,10 +4,16 @@ import { getToken } from './utils.service';
 
 export const getPostBySlug = async (slug: string) => {
   try {
-    const post = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`
-    );
-    const data = await post.json();
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`);
+    const data = await res.json();
+    if (!res.ok) {
+      console.error(
+        `Post not found: ${slug}`,
+        JSON.stringify({ cause: res }, null, 2)
+      );
+      throw new Error(
+        `Post not found: ${slug}`, { cause: res });
+    }
     return postSchema.parse(data);
   } catch (error) {
     console.error(error);

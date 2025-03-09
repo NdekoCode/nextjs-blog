@@ -14,6 +14,9 @@ export const GET = async (
     // On utilise ici `update` au lieu de `findUnique` parce que quand on récupère un post, on veut incrémenter le nombre de vues.
     const post = await prisma.post.update({
       where: { slug },
+      include: {
+        author: true,
+      },
       data: {
         nbViews: { increment: 1 },
       },
@@ -24,7 +27,7 @@ export const GET = async (
     return Response.json(data, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Something went wrong" },
+      { error: "Something went wrong", cause: error },
       { status: 500 }
     );
   }
