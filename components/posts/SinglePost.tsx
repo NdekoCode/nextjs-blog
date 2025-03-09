@@ -91,15 +91,15 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
         <div className="inline-block bg-white shadow-md rounded-full py-3 px-4 dark:bg-neutral-800">
           <div className="flex items-center gap-x-1.5">
             {/* Button */}
-            <div className="hs-tooltip inline-block">
+            <div className="inline-block group relative">
               <button
                 type="button"
-                className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
+                className=" flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
               >
                 <Eye size={24} className="shrink-0 size-4" />
                 {post.nbViews}
                 <span
-                  className="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-black"
+                  className="group-hover:opacity-100 absolute -top-5 left-0 group-hover:visible opacity-0 transition-opacity inline-block invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-black"
                   role="tooltip"
                 >
                   View
@@ -109,10 +109,10 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
             {/* Button */}
             <div className="block h-3 border-e border-gray-300 mx-3 dark:border-neutral-600" />
             {/* Button */}
-            <div className="hs-tooltip inline-block">
+            <div className="relative group inline-block">
               <button
                 type="button"
-                className="hs-tooltip-toggle flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
+                className="flex items-center gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
               >
                 <svg
                   className="shrink-0 size-4"
@@ -129,8 +129,7 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
                   <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
                 </svg>
                 {post.nbComments}
-                <span
-                  className="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-black"
+                <span className="group-hover:opacity-100 group-hover:visible opacity-0 transition-opacity inline-block absolute -top-5 left-0  invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-black"
                   role="tooltip"
                 >
                   Comment

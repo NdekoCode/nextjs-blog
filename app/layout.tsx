@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="light">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-svh h-full flex flex-col overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-svh h-full flex flex-col overflow-x-hidden bg-white dark:bg-gray-900`}
       >
         <ThemeProvider
           attribute="class"
