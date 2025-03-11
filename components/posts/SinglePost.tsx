@@ -3,10 +3,10 @@ import { Eye } from 'lucide-react';
 import Link from 'next/link';
 import { FC } from 'react';
 
-import { Avatar } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { PostCategory } from '@/lib/schemas/post.schema';
-import { AvatarFallback } from '@radix-ui/react-avatar';
 
+import OnlyAuthUserCanSee from '../auth/OnlyAuthUserCanSee';
 import Comments from './Comments';
 
 const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
@@ -251,7 +251,9 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
       {/* End Sticky Group */}
 
       {/* Comments */}
+      <OnlyAuthUserCanSee message="You must be logged in to see the comments">
       <Comments />
+      </OnlyAuthUserCanSee>
       {/* End Comments */}
     </>
   );

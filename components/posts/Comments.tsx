@@ -1,4 +1,6 @@
 import { Button } from '../ui/button';
+import { Label } from '../ui/label';
+import { Textarea } from '../ui/textarea';
 
 const Comments = () => {
   return (
@@ -10,16 +12,16 @@ const Comments = () => {
           </h2>
         </div>
         <form className="mb-6">
-          <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-            <label htmlFor="comment" className="sr-only">
+          <div className=" mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <Label htmlFor="comment" className="sr-only">
               Your comment
-            </label>
-            <textarea
+            </Label>
+            <Textarea
               id="comment"
               rows={6}
-              className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+              className="py-2 px-4 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none focus:ring-offset-0 dark:ring-gray-500 transition-all duration-300 dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
               placeholder="Write a comment..."
-              required={true}
+              required
               defaultValue={""}
             />
           </div>
