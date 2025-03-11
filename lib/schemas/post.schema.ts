@@ -1,27 +1,7 @@
 import { z } from 'zod';
 
-export interface ICategory {
-  id: string | number;
-  title?: string;
-  slug?: string;
-}
-const authorSchema = z.object({
-  name: z.string().optional(),
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
-  email: z.string().optional(),
-  image: z.string().optional(),
-  createdAt:  z.string().or(z.date()).optional(),
-});
-export const categorySchema = z.object({
-  id: z.string().or(z.number()),
-  title: z.string(),
-  slug: z.string(),
-  description: z.string().optional().nullable().default(null),
-  createdAt: z.string().datetime().optional(),
-  updateAt: z.string().datetime().optional(),
-});
-export const categoriesSchema = z.array(categorySchema);
+import { categorySchema } from './category.schema';
+import { authorSchema } from './user.schema';
 
 export const postSchema = z.object({
   id: z.number().or(z.string()).optional(),
@@ -36,7 +16,7 @@ export const postSchema = z.object({
   slug: z.string(),
   content: z.string(),
   categories: z.array(categorySchema).optional(),
-  createdAt:  z.string().or(z.date()).optional(),
+  createdAt: z.string().or(z.date()).optional(),
 });
 export const postsSchema = z.array(postSchema);
 
