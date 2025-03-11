@@ -16,6 +16,11 @@ export const GET = async (
       where: { slug },
       include: {
         author: true,
+        categories: {
+          include: {
+            category: true
+          },
+        },
       },
       data: {
         nbViews: { increment: 1 },
@@ -23,9 +28,18 @@ export const GET = async (
     });
     if (!post)
       return Response.json({ error: "No Data found" }, { status: 404 });
-    const data = postSchema.parse(post)
+
+    // Transformation : Extraire directement les catégories
+    const formattedPost = {
+      ...post,
+      categories: post.categories.map((c) => c.category), // Extrait les vraies catégories
+    };
+
+    // Validation avec Zod après transformation
+    const data = postSchema.parse(formattedPost);
     return Response.json(data, { status: 200 });
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { error: "Something went wrong", cause: error },
       { status: 500 }

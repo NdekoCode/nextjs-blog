@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/connect';
 import { getAuthSession } from '@/lib/constants/auth-options';
 import { IPostDto } from '@/lib/schemas/dto/post.dto';
+import { postsSchema } from '@/lib/schemas/post.schema';
 
 export const GET = async (req: NextRequest) => {
   try {
@@ -25,8 +26,13 @@ export const GET = async (req: NextRequest) => {
         },
       },
     });
-
-    return NextResponse.json(posts, { status: 200 });
+    const formattedPosts = posts.map((post) => ({
+      ...post,
+      categories: post.categories.map((c) => c.category),
+    }));
+    // Validation avec Zod après transformation
+    const data = postsSchema.parse(formattedPosts);
+    return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message, stack: error.stack },

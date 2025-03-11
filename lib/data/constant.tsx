@@ -1,35 +1,43 @@
-import { ICategory, Post } from '../types';
+import { ICategory } from '../schemas/category.schema';
+import { Post } from '../types';
 
 export const CATEGORIES: ICategory[] = [
   {
-    name: "Next.js",
+    id: "1",
+    title: "Next.js",
     slug: "next.js",
   },
   {
-    name: "React Native",
+    id: "2",
+    title: "React Native",
     slug: "react-native",
   },
   {
-    name: "CSS",
+    id: "3",
+    title: "CSS",
     slug: "css",
   },
   {
-    name: "Nest.js",
+    id: "4",
+    title: "Nest.js",
     slug: "nest.js",
   },
   {
-    name: "Tailwindcss",
+    id: "5",
+    title: "Tailwindcss",
     slug: "tailwindcss",
   },
   {
-    name: "Javascript",
+    id: "6",
+    title: "Javascript",
     slug: "javascript",
   },
   {
-    name: "React",
+    id: "7",
+    title: "React",
     slug: "react",
   },
-].map((d, i) => ({ ...d, id: i + 1 }));
+];
 
 export const POSTS: Post[] = [
   {

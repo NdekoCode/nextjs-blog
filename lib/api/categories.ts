@@ -5,10 +5,19 @@ export const getCategories = async (categorySlug: string) => {
         slug: categorySlug,
       },
       include: {
-        posts: true,
+        posts: {
+          include: {
+            post: true,
+          },
+        },
       },
     });
-    return category;
+    if (!category) return null;
+    const formattedCategory = {
+      ...category,
+      posts: category.posts.map((p) => p.post),
+    };
+    return formattedCategory;
   } catch (error) {
     throw new Error("Failed to get categories");
   }

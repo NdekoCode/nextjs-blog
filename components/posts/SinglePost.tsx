@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { Eye } from 'lucide-react';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -62,10 +62,9 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
 
           <div className="space-y-5 md:space-y-8">
             {post.content && (
-              <div
-                className=" prose lg:prose-xl mt-12 prose-p:text-gray-800 dark:prose-p:text-neutral-200 dark:prose-h1:text-gray-100 dark:prose-h2:text-gray-100 prose-h3:text-2xl prose-h3:font-semibold dark:prose-h3:text-white dark:prose-h4:text-gray-100 dark:prose-h5:text-gray-100 dark:prose-h6:text-gray-100 dark:prose-a:underline prose-a:text-blue-600 prose-a:decoration-2 prose-a:hover:underline prose-a:focus:outline-hidden prose-a:focus:underline prose-a:font-medium dark:prose-a:text-blue-500  prose-img:rounded-xl prose-figcaption:mt-3 prose-figcaption:text-sm prose-figcaption:text-center prose-figcaption:text-gray-500 dark:prose-figcaption:text-neutral-500 prose-div:space-y-3 prose-ul:list-disc prose-ul:list-outside prose-ul:space-y-5 prose-ul:ps-5 prose-ul:text-lg prose-ul:text-gray-800 dark:prose-li:text-neutral-200 prose-li:ps-2"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
+              <div className=" prose lg:prose-xl mt-12 prose-article:text-gray-800 dark:prose-article:text-neutral-300 prose-p:text-gray-800 dark:prose-p:text-neutral-200 dark:prose-h1:text-gray-100 dark:prose-h2:text-gray-100 prose-h3:text-2xl prose-h3:font-semibold dark:prose-h3:text-white dark:prose-h4:text-gray-100 dark:prose-h5:text-gray-100 dark:prose-h6:text-gray-100 dark:prose-a:underline prose-a:text-blue-600 prose-a:decoration-2 prose-a:hover:underline prose-a:focus:outline-hidden prose-a:focus:underline prose-a:font-medium dark:prose-a:text-blue-500  prose-img:rounded-xl prose-figcaption:mt-3 prose-figcaption:text-sm prose-figcaption:text-center prose-figcaption:text-gray-500 dark:prose-figcaption:text-neutral-500 prose-div:space-y-3 prose-ul:list-disc prose-ul:list-outside prose-ul:space-y-5 prose-ul:ps-5 prose-ul:text-lg prose-ul:text-gray-800 dark:prose-li:text-neutral-200 prose-li:ps-2">
+                <article dangerouslySetInnerHTML={{ __html: post.content }} id="post-content"/>
+              </div>
             )}
 
             {post.categories && post.categories.length > 0 && (
@@ -129,7 +128,8 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
                   <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
                 </svg>
                 {post.nbComments}
-                <span className="group-hover:opacity-100 group-hover:visible opacity-0 transition-opacity inline-block absolute -top-5 left-0  invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-black"
+                <span
+                  className="group-hover:opacity-100 group-hover:visible opacity-0 transition-opacity inline-block absolute -top-5 left-0  invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-black"
                   role="tooltip"
                 >
                   Comment
@@ -252,7 +252,7 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
 
       {/* Comments */}
       <OnlyAuthUserCanSee message="You must be logged in to see the comments">
-      <Comments />
+        <Comments />
       </OnlyAuthUserCanSee>
       {/* End Comments */}
     </>

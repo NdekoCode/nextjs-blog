@@ -33,8 +33,14 @@ const PostCard: FC<{ post: PostCategory; className?: string }> = ({
         <CardTitle className="pt-3">{post.title}</CardTitle>
       </CardContent>
       <CardFooter className="justify-between">
-        {post.category && (
-          <Badge variant="outline">{post.category.title} </Badge>
+        {post.categories && post.categories.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {post.categories.map((category) => (
+              <Badge variant="outline" key={category.id}>
+                {category.title}
+              </Badge>
+            ))}
+          </div>
         )}
         <div className="flex items-center gap-1.5">
           <Button

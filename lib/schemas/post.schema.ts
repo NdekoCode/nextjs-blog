@@ -30,5 +30,6 @@ export const categoryPostSchema = z.object({
   description: z.string().optional().nullable().default(null),
   createdAt: z.string().datetime().optional(),
   updateAt: z.string().datetime().optional(),
-  posts: z.array(postSchema),
+  posts: z.array(postSchema).optional(),
 });
+export const categoriesPostSchema = z.array(categoryPostSchema)
