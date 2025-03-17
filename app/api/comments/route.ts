@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 
 import prisma from '@/lib/connect';
-import { getAuthSession } from '@/lib/constants/auth-options';
+import { auth } from '@/lib/constants/auth-options';
 import { Comment } from '@/lib/schemas/comment.schema';
 
 export const POST = async (req: Request) => {
-  const session = await getAuthSession();
-  if (!session || !session.user) {
+  const {isConnected,session} = await auth();
+  if (!isConnected) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   // On recupere le corps de la requete

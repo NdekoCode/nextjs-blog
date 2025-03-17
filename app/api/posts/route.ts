@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import prisma from '@/lib/connect';
-import { getAuthSession } from '@/lib/constants/auth-options';
+import { auth } from '@/lib/constants/auth-options';
 import { IPostDto } from '@/lib/schemas/dto/post.dto';
 import { postsSchema } from '@/lib/schemas/post.schema';
 
@@ -77,8 +77,8 @@ export const GET = async (req: NextRequest) => {
  */
 export const POST = async (req: NextRequest) => {
   // 1. Vérification de l'authentification
-  const session = await getAuthSession();
-  if (!session || !session.user) {
+  const { isConnected, session } = await auth();
+  if (!isConnected) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -128,7 +128,7 @@ export const POST = async (req: NextRequest) => {
 
     // 5. Création du post
     // On upload l'image
-    
+
     // Créer le post avec les catégories associées
     const post = await prisma.post.create({
       data: {
@@ -138,7 +138,7 @@ export const POST = async (req: NextRequest) => {
         image: image as string,
         nbViews: 0,
         nbComments: 0,
-        userEmail: session.user.email as string,
+        userEmail: session?.user?.email as string,
         categories: {
           // "Crée une relation entre le post et les catégories existantes", donc si existingCategories = [cat1, cat2, cat3], alors il va créer une relation entre le post et les catégories cat1, cat2 et cat3
           create: existingCategories.map((category) => ({
