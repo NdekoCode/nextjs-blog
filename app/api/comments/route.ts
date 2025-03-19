@@ -25,6 +25,7 @@ export const POST = async (req: Request) => {
     // On verifie si le commentaire existe deja
     const comment = await prisma.comment.findFirst({
       where: {
+        content,
         userEmail,
         postSlug,
       },

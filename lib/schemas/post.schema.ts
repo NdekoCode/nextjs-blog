@@ -39,6 +39,6 @@ export const commentFormSchema = z
       .string()
       .min(5, { message: "Comment must be at least 5 characters long" }),
     postSlug: z.string(),
-  })
-  .required();
+    })
+    .required();
 export type CommentForm = z.infer<typeof commentFormSchema>;

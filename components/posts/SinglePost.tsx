@@ -251,9 +251,11 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
       {/* End Sticky Group */}
 
       {/* Comments */}
-      <OnlyAuthUserCanSee message="You must be logged in to see the comments">
-        <Comments postSlug={post.slug} />
-      </OnlyAuthUserCanSee>
+      {post && (
+        <OnlyAuthUserCanSee message="You must be logged in to see the comments">
+          <Comments postSlug={post.slug} />
+        </OnlyAuthUserCanSee>
+      )}
       {/* End Comments */}
     </>
   );
