@@ -32,4 +32,13 @@ export const categoryPostSchema = z.object({
   updateAt: z.string().datetime().optional(),
   posts: z.array(postSchema).optional(),
 });
-export const categoriesPostSchema = z.array(categoryPostSchema)
+export const categoriesPostSchema = z.array(categoryPostSchema);
+export const commentFormSchema = z
+  .object({
+    content: z
+      .string()
+      .min(5, { message: "Comment must be at least 5 characters long" }),
+    postSlug: z.string(),
+  })
+  .required();
+export type CommentForm = z.infer<typeof commentFormSchema>;

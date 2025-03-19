@@ -252,7 +252,7 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
 
       {/* Comments */}
       <OnlyAuthUserCanSee message="You must be logged in to see the comments">
-        <Comments />
+        <Comments postSlug={post.slug} />
       </OnlyAuthUserCanSee>
       {/* End Comments */}
     </>
