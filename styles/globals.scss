@@ -76,3 +76,15 @@ body {
     @apply bg-background text-foreground;
   }
 }
+body > .container {
+  @apply bg-inherit;
+}
+  article{
+    @apply text-gray-800;
+  }
+
+.dark{
+    article{
+      @apply text-neutral-300
+    }
+}

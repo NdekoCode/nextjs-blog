@@ -31,6 +31,7 @@ model User {
   accounts Account[]
   sessions Session[]
   posts    Post[]
+  Comment  Comment[]
 }
 
 model Account {
@@ -94,6 +95,7 @@ model Post {
   author     User           @relation(fields: [userEmail], references: [email], onDelete: Cascade)
   // category # categories
   categories PostCategory[]
+  comments   Comment[]
 
   // comment # comments[]
   @@index([userEmail])
@@ -117,4 +119,17 @@ model PostCategory {
   @@id([postId, categoryId])
   @@index([postId])
   @@index([categoryId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  userEmail String
+  user      User     @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+  postSlug  String
+  post      Post     @relation(fields: [postSlug], references: [slug], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([userEmail])
+  @@index([postSlug])
 }

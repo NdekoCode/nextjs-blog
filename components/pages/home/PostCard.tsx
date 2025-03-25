@@ -9,10 +9,11 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { PostCategory } from '@/lib/schemas/post.schema';
 import { cn } from '@/lib/utils';
 
-const PostCard: FC<{ post: PostCategory; className?: string }> = ({
-  post,
-  className,
-}) => {
+const PostCard: FC<{
+  post: PostCategory;
+  className?: string;
+  showComments?: boolean;
+}> = ({ post, className, showComments = true }) => {
   if (!post) return null;
   return (
     <Card className={cn("group relative", className)}>
@@ -33,16 +34,24 @@ const PostCard: FC<{ post: PostCategory; className?: string }> = ({
         <CardTitle className="pt-3">{post.title}</CardTitle>
       </CardContent>
       <CardFooter className="justify-between">
-        {post.category && (
-          <Badge variant="outline">{post.category.title} </Badge>
+        {post.categories && post.categories.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {post.categories.map((category) => (
+              <Badge variant="outline" key={category.id}>
+                {category.title}
+              </Badge>
+            ))}
+          </div>
         )}
         <div className="flex items-center gap-1.5">
-          <Button
-            aria-label={`View ${post.nbComments} comments`}
-            variant="ghost"
-          >
-            <MessageCircle /> <span>{post.nbComments}</span>
-          </Button>
+          {showComments && (
+            <Button
+              aria-label={`View ${post.nbComments} comments`}
+              variant="ghost"
+            >
+              <MessageCircle /> <span>{post.comments?.length || 0}</span>
+            </Button>
+          )}
           <Button aria-label={`View ${post.nbViews} views`} variant="ghost">
             <Eye /> <span>{post.nbViews}</span>
           </Button>
