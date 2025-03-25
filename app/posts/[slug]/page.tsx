@@ -18,10 +18,15 @@ export const generateMetadata = async ({
 };
 
 export const generateStaticParams = async () => {
-  const posts = await getPosts();
-  return posts?.map((post) => ({
-    slug: post.slug,
-  }));
+  try {
+    const posts = await getPosts();
+    return posts?.map((post) => ({
+      slug: post.slug,
+    }));
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 };
 const page: NextPage<{ params: { slug: string } }> = ({ params }) => {
   const slug = params?.slug;

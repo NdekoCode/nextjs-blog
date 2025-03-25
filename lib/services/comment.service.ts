@@ -1,5 +1,6 @@
 import { postCommentsSchema } from '../schemas/comment.schema';
 import { CommentForm } from '../schemas/post.schema';
+import { getApiUrl } from '../utils';
 
 export const createComment = async (comment: CommentForm) => {
   try {
@@ -19,7 +20,7 @@ export const createComment = async (comment: CommentForm) => {
 };
 export const getCommentsByPostSlug = async (postSlug: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postSlug}/comments`);
+    const res = await fetch(getApiUrl(`/posts/${postSlug}/comments`));
     const data = await res.json();
     return postCommentsSchema.parse(data);
   } catch (error) {

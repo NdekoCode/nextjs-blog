@@ -19,3 +19,11 @@ export const uploadImage = async (image: File) => {
   const data = (await res.json()) as { filePath: string };
   return data.filePath;
 };
+// lib/api.ts
+export function getApiUrl(path: string): string {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_API_URL ||
+    (process.env.VERCEL ? 'https://nextjs-blog-ndekocode.vercel.app/api' : 'http://localhost:3000/api')
+
+  return `${baseUrl.replace(/\/$/, '')}/${path.replace(/^\/+/, '')}`;
+}

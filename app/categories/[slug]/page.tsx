@@ -2,10 +2,15 @@ import PostCategoryList from '@/components/pages/home/PostCategoryList';
 import { getCategories } from '@/lib/services/category.service';
 
 export const generateStaticParams = async () => {
-  const categories = await getCategories();
-  return categories.map((category) => ({
-    slug: category.slug,
-  }));
+  try {
+    const categories = await getCategories();
+    return categories.map((category) => ({
+      slug: category.slug,
+    }));
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 };
 const CategoriesPage = ({ params }: { params: { slug: string } }) => {
   const slug = params?.slug ?? "";
