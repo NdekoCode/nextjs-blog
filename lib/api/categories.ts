@@ -1,3 +1,5 @@
+import prisma from '@/lib/connect';
+
 export const getCategories = async (categorySlug: string) => {
   try {
     const category = await prisma?.category.findUnique({
@@ -19,6 +21,6 @@ export const getCategories = async (categorySlug: string) => {
     };
     return formattedCategory;
   } catch (error) {
-    throw new Error("Failed to get categories");
+    throw new Error('Failed to get categories');
   }
 };

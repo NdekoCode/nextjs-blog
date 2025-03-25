@@ -13,11 +13,11 @@ export const getCategories = async()=>{
 
 export const getCategoryBySlug = async(slug:string)=>{
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${slug}`)
-            const category = await res.json() as CategoryPost;
-        return category;
-    } catch (error) {
-        console.error(error)
-        throw error
-    }
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${slug}`);
+    const category = (await res.json()) as CategoryPost;
+    return category;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
