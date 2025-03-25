@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { CommentForm, commentFormSchema } from '@/lib/schemas/post.schema';
-import { createComment } from '@/lib/services/comment.service';
+import { createComment, getCommentsByPostSlug } from '@/lib/services/comment.service';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
@@ -17,6 +17,16 @@ const Comments: FC<{ postSlug: string }> = ({ postSlug }) => {
   if (!postSlug) {
     return <div>No post slug found</div>;
   }
+  const {
+    data: comments,
+    isLoading: commentsLoading,
+    isFetched: commentsFetched,
+    isFetching: commentsFetching,
+  } = useQuery({
+    queryKey: ["comments", postSlug],
+    queryFn: () => getCommentsByPostSlug(postSlug),
+  });
+  console.log(comments);
   const commentFormInitialValues: CommentForm = {
     content: "",
     postSlug,
@@ -38,13 +48,15 @@ const Comments: FC<{ postSlug: string }> = ({ postSlug }) => {
       toast.error("Failed to create comment");
     },
   });
-  const [isLoading, setIsLoading] = useState(mutation.isPending || formState.isLoading || formState.isSubmitting);
+  const [isLoading, setIsLoading] = useState(
+    mutation.isPending || formState.isLoading || formState.isSubmitting
+  );
   const onSubmit = async (data: CommentForm) => {
     setIsLoading(true);
     console.log(data);
     await mutation.mutateAsync(data);
     setIsLoading(false);
-    form.reset()
+    form.reset();
   };
   return (
     <section className=" py-8 lg:py-16 antialiased">
@@ -90,40 +102,38 @@ const Comments: FC<{ postSlug: string }> = ({ postSlug }) => {
                 </FormItem>
               )}
             />
-            <LoadingButton
-              type="submit"
-              loading={isLoading}
-            >
+            <LoadingButton type="submit" loading={isLoading}>
               Post comment
             </LoadingButton>
           </form>
         </Form>
-
-        <article className="p-6 text-base bg-white rounded-lg dark:bg-gray-900">
-          <footer className="flex justify-between items-center mb-2">
-            <div className="flex items-center">
-              <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                <img
-                  className="mr-2 w-6 h-6 rounded-full"
-                  src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                  alt="Michael Gough"
-                />
-                Michael Gough
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                <time dateTime="2022-02-08" title="February 8th, 2022">
-                  Feb. 8, 2022
-                </time>
-              </p>
-            </div>
-          </footer>
-          <p className="text-gray-500 dark:text-gray-400">
-            Very straight-to-point article. Really worth time reading. Thank
-            you! But tools are just the instruments for the UX designers. The
-            knowledge of the design tools are as important as the creation of
-            the design strategy.
-          </p>
-        </article>
+        {comments?.reverse()?.map((comment) => (
+          <article
+            className="p-6 text-base bg-white rounded-lg dark:bg-gray-900"
+            key={comment.id}
+          >
+            <footer className="flex justify-between items-center mb-2">
+              <div className="flex items-center">
+                <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                  <img
+                    className="mr-2 w-6 h-6 rounded-full"
+                    src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+                    alt="Michael Gough"
+                  />
+                  {comment.user.name}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <time dateTime="2022-02-08" title="February 8th, 2022">
+                    {comment.createdAt.toLocaleString()}
+                  </time>
+                </p>
+              </div>
+            </footer>
+            <p className="text-gray-500 dark:text-gray-400">
+              {comment.content}
+            </p>
+          </article>
+        ))}
       </div>
     </section>
   );
