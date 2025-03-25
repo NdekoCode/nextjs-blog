@@ -47,7 +47,7 @@ const PostCard: FC<{ post: PostCategory; className?: string }> = ({
             aria-label={`View ${post.nbComments} comments`}
             variant="ghost"
           >
-            <MessageCircle /> <span>{post.nbComments}</span>
+            <MessageCircle /> <span>{post.comments?.length || 0}</span>
           </Button>
           <Button aria-label={`View ${post.nbViews} views`} variant="ghost">
             <Eye /> <span>{post.nbViews}</span>

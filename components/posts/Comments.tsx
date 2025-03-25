@@ -116,15 +116,17 @@ const Comments: FC<{ postSlug: string; comments?: PostComment[] }> = ({
               >
                 <footer className="flex justify-between items-center mb-2">
                   <div className="flex items-center">
-                    <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                      <Avatar className="size-6 mr-2">
-                        <AvatarImage src={comment.user.image ?? ""} />
-                        <AvatarFallback>
-                          {comment.user.name?.charAt(0)}
-                        </AvatarFallback>
-                      </Avatar>
-                      {comment.user.name}
-                    </p>
+                    {comment?.user && (
+                      <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                        <Avatar className="size-6 mr-2">
+                          <AvatarImage src={comment.user?.image ?? ""} />
+                          <AvatarFallback>
+                            {comment.user?.name?.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
+                        {comment.user?.name}
+                      </p>
+                    )}
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       <time dateTime="2022-02-08" title="February 8th, 2022">
                         {date}

@@ -9,7 +9,9 @@ const prisma = new PrismaClient();
 export async function GET() {
   try {
     console.log("🔄 Début du peuplement de la base de données...");
-
+    if (process.env.NODE_ENV === "production") {
+      return NextResponse.json({ error: "Not allowed in production" }, { status: 403 });
+    }
     // Suppression des anciennes données
     await prisma.postCategory.deleteMany();
     await prisma.post.deleteMany();

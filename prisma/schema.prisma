@@ -95,7 +95,7 @@ model Post {
   author     User           @relation(fields: [userEmail], references: [email], onDelete: Cascade)
   // category # categories
   categories PostCategory[]
-  Comment    Comment[]
+  comments   Comment[]
 
   // comment # comments[]
   @@index([userEmail])

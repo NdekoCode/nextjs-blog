@@ -9,18 +9,18 @@ export const commentSchema = z.object({
   postSlug: z.string().optional(),
   userEmail: z.string().optional(),
   user: authorSchema.required(),
-  post: postSchema.required(),
+  post: postSchema.optional(),
   createdAt: z.string().or(z.date()).optional(),
 });
 export const postCommentSchema = z.object({
   id: z.string(),
-  userEmail: z.string().email(),
-  postSlug: z.string(),
+  userEmail: z.string().email().optional(),
+  postSlug: z.string().optional(),
   createdAt: z.string().or(z.date()),
   content: z
     .string()
     .min(5, { message: "Comment must be at least 5 characters long" }),
-  user: authorSchema,
+  user: authorSchema.optional(),
 });
 
 export const postCommentsSchema = z.array(postCommentSchema);

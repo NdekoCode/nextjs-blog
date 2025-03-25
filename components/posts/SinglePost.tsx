@@ -3,18 +3,25 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Eye } from 'lucide-react';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { FC } from 'react';
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useComments } from '@/lib/hooks/useComments';
-import { PostCategory } from '@/lib/schemas/post.schema';
+import { usePost } from '@/lib/hooks/usePost';
 
 import OnlyAuthUserCanSee from '../auth/OnlyAuthUserCanSee';
+import Loading from '../Loading';
 import Comments from './Comments';
 
 dayjs.extend(relativeTime);
-const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
-  const { data: comments, isLoading: commentsLoading } = useComments(post.slug);
+const SinglePost: FC<{ slug: string }> = ({ slug }) => {
+  if (!slug) return notFound();
+  const { data: post, isLoading, isError, error, isFetching } = usePost(slug);
+  const { data: comments, isLoading: commentsLoading } = useComments(slug);
+  if (isLoading) return <Loading />;
+  if (isError) return <span className="text-red-500">{error.message}</span>;
+  if (!post) return notFound();
   const date = dayjs(post.createdAt).fromNow();
   return (
     <>

@@ -17,6 +17,15 @@ export const postSchema = z.object({
   content: z.string(),
   categories: z.array(categorySchema).optional(),
   createdAt: z.string().or(z.date()).optional(),
+  comments: z
+    .array(
+      z.object({
+        id: z.string(),
+        content: z.string(),
+        createdAt: z.string().or(z.date()).optional(),
+      })
+    )
+    .optional(),
 });
 export const postsSchema = z.array(postSchema);
 
@@ -39,6 +48,6 @@ export const commentFormSchema = z
       .string()
       .min(5, { message: "Comment must be at least 5 characters long" }),
     postSlug: z.string(),
-    })
-    .required();
+  })
+  .required();
 export type CommentForm = z.infer<typeof commentFormSchema>;

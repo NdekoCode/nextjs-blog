@@ -21,6 +21,7 @@ export const GET = async (req: NextRequest) => {
           }
         : {},
       include: {
+        comments:true,
         categories: {
           include: { category: true }, // Récupérer les catégories associées
         },
@@ -29,6 +30,7 @@ export const GET = async (req: NextRequest) => {
     const formattedPosts = posts.map((post) => ({
       ...post,
       categories: post.categories.map((c) => c.category),
+      comments: post.comments,
     }));
     // Validation avec Zod après transformation
     const data = postsSchema.parse(formattedPosts);

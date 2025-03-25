@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import 'react-quill/dist/quill.snow.css';
 
 import { CloudUpload, Paperclip } from 'lucide-react';
@@ -13,10 +13,10 @@ import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
 import {
-    FileInput, FileUploader, FileUploaderContent, FileUploaderItem
+  FileInput, FileUploader, FileUploaderContent, FileUploaderItem
 } from '@/components/ui/file-upload';
 import {
-    Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
+  Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useCategories } from '@/lib/hooks/useCategories';

@@ -16,9 +16,10 @@ export const GET = async (
       where: { slug },
       include: {
         author: true,
+        comments: true,
         categories: {
           include: {
-            category: true
+            category: true,
           },
         },
       },

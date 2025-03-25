@@ -1,19 +1,32 @@
-"use client";;
 import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 
-import Loading from '@/components/Loading';
 import SinglePost from '@/components/posts/SinglePost';
-import { usePost } from '@/lib/hooks/usePost';
+import { getPostBySlug, getPosts } from '@/lib/services/post.service';
 
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { slug: string };
+}) => {
+  const slug = params?.slug;
+  if (!slug) return notFound();
+  const post = await getPostBySlug(slug);
+  return {
+    title: post?.title,
+  };
+};
+
+export const generateStaticParams = async () => {
+  const posts = await getPosts();
+  return posts?.map((post) => ({
+    slug: post.slug,
+  }));
+};
 const page: NextPage<{ params: { slug: string } }> = ({ params }) => {
   const slug = params?.slug;
   if (!slug) return notFound();
-  const { data: post, isLoading, isError, error, isFetching } = usePost(slug);
-  if (isLoading) return <Loading />;
-  if (isError) return <span className="text-red-500">{error.message}</span>;
-  if (!post) return notFound();
-  return <SinglePost post={post} />;
+  return <SinglePost slug={slug} />;
 };
 
 export default page;
