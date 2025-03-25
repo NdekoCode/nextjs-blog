@@ -1,12 +1,13 @@
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
 
-import { CATEGORIES } from '@/lib/data/constant';
+import { useCategories } from '@/lib/hooks/useCategories';
 
 import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 
 const ResponsiveMenu = () => {
+  const { data: categories } = useCategories();
   return (
     <div className="block lg:hidden">
       <Sheet>
@@ -20,24 +21,26 @@ const ResponsiveMenu = () => {
                 Write a post
               </Button>
             </Link>
-            <ul className="flex flex-col gap-y-2">
-              {CATEGORIES.map((category, index) => (
-                <li key={index}>
-                  <Link
-                    href={`/categories/${category.slug}`}
-                    aria-label={`View all posts in "${category.name}" category`}
-                    className="p-3"
-                  >
-                    <Button
-                      aria-label={`View all posts in "${category.name}" category`}
-                      variant="ghost"
+            {categories && categories.length > 0 && (
+              <ul className="flex flex-col gap-y-2">
+                {categories.map((category, index) => (
+                  <li key={index}>
+                    <Link
+                      href={`/categories/${category.slug}`}
+                      aria-label={`View all posts in "${category.title}" category`}
+                      className="p-3"
                     >
-                      {category.name}
-                    </Button>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                      <Button
+                        aria-label={`View all posts in "${category.title}" category`}
+                        variant="ghost"
+                      >
+                        {category.title}
+                      </Button>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </SheetContent>
       </Sheet>

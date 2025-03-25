@@ -1,15 +1,21 @@
 "use client";
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { Eye } from 'lucide-react';
 import Link from 'next/link';
 import { FC } from 'react';
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { useComments } from '@/lib/hooks/useComments';
 import { PostCategory } from '@/lib/schemas/post.schema';
 
 import OnlyAuthUserCanSee from '../auth/OnlyAuthUserCanSee';
 import Comments from './Comments';
 
+dayjs.extend(relativeTime);
 const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
+  const { data: comments, isLoading: commentsLoading } = useComments(post.slug);
+  const date = dayjs(post.createdAt).fromNow();
   return (
     <>
       <div
@@ -49,7 +55,7 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
                     {/* End Tooltip */}
                     <ul className="text-xs text-gray-500 dark:text-neutral-500">
                       <li className="inline-block relative pe-6 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-2 before:-translate-y-1/2 before:size-1 before:bg-gray-300 before:rounded-full dark:text-neutral-400 dark:before:bg-neutral-600">
-                        {post.createdAt?.toLocaleString()}
+                        {date}
                       </li>
                     </ul>
                   </div>
@@ -63,7 +69,10 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
           <div className="space-y-5 md:space-y-8">
             {post.content && (
               <div className=" prose lg:prose-xl mt-12 prose-article:text-gray-800 dark:prose-article:text-neutral-300 prose-p:text-gray-800 dark:prose-p:text-neutral-200 dark:prose-h1:text-gray-100 dark:prose-h2:text-gray-100 prose-h3:text-2xl prose-h3:font-semibold dark:prose-h3:text-white dark:prose-h4:text-gray-100 dark:prose-h5:text-gray-100 dark:prose-h6:text-gray-100 dark:prose-a:underline prose-a:text-blue-600 prose-a:decoration-2 prose-a:hover:underline prose-a:focus:outline-hidden prose-a:focus:underline prose-a:font-medium dark:prose-a:text-blue-500  prose-img:rounded-xl prose-figcaption:mt-3 prose-figcaption:text-sm prose-figcaption:text-center prose-figcaption:text-gray-500 dark:prose-figcaption:text-neutral-500 prose-div:space-y-3 prose-ul:list-disc prose-ul:list-outside prose-ul:space-y-5 prose-ul:ps-5 prose-ul:text-lg prose-ul:text-gray-800 dark:prose-li:text-neutral-200 prose-li:ps-2">
-                <article dangerouslySetInnerHTML={{ __html: post.content }} id="post-content"/>
+                <article
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                  id="post-content"
+                />
               </div>
             )}
 
@@ -127,7 +136,7 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
                 >
                   <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
                 </svg>
-                {post.nbComments}
+                {comments?.length || 0}
                 <span
                   className="group-hover:opacity-100 group-hover:visible opacity-0 transition-opacity inline-block absolute -top-5 left-0  invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-black"
                   role="tooltip"
@@ -253,7 +262,7 @@ const SinglePost: FC<{ post: PostCategory }> = ({ post }) => {
       {/* Comments */}
       {post && (
         <OnlyAuthUserCanSee message="You must be logged in to see the comments">
-          <Comments postSlug={post.slug} />
+          <Comments postSlug={post.slug} comments={comments} />
         </OnlyAuthUserCanSee>
       )}
       {/* End Comments */}

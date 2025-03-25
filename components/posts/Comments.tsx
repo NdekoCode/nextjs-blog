@@ -1,32 +1,30 @@
 "use client";
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import { PostComment } from '@/lib/schemas/comment.schema';
 import { CommentForm, commentFormSchema } from '@/lib/schemas/post.schema';
-import { createComment, getCommentsByPostSlug } from '@/lib/services/comment.service';
+import { createComment } from '@/lib/services/comment.service';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
 import { LoadingButton } from '../ui/loading-button';
 import { Textarea } from '../ui/textarea';
 
-const Comments: FC<{ postSlug: string }> = ({ postSlug }) => {
+dayjs.extend(relativeTime);
+const Comments: FC<{ postSlug: string; comments?: PostComment[] }> = ({
+  postSlug,
+  comments,
+}) => {
   if (!postSlug) {
     return <div>No post slug found</div>;
   }
-  const {
-    data: comments,
-    isLoading: commentsLoading,
-    isFetched: commentsFetched,
-    isFetching: commentsFetching,
-  } = useQuery({
-    queryKey: ["comments", postSlug],
-    queryFn: () => getCommentsByPostSlug(postSlug),
-  });
-  console.log(comments);
   const commentFormInitialValues: CommentForm = {
     content: "",
     postSlug,
@@ -63,7 +61,7 @@ const Comments: FC<{ postSlug: string }> = ({ postSlug }) => {
       <div className="max-w-2xl mx-auto px-4">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
-            Discussion (20)
+            Discussion ({comments?.length})
           </h2>
         </div>
         <Form {...form}>
@@ -107,33 +105,39 @@ const Comments: FC<{ postSlug: string }> = ({ postSlug }) => {
             </LoadingButton>
           </form>
         </Form>
-        {comments?.reverse()?.map((comment) => (
-          <article
-            className="p-6 text-base bg-white rounded-lg dark:bg-gray-900"
-            key={comment.id}
-          >
-            <footer className="flex justify-between items-center mb-2">
-              <div className="flex items-center">
-                <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                  <img
-                    className="mr-2 w-6 h-6 rounded-full"
-                    src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                    alt="Michael Gough"
-                  />
-                  {comment.user.name}
+        {comments &&
+          comments.length > 0 &&
+          comments?.map((comment) => {
+            const date = dayjs(comment.createdAt).fromNow();
+            return (
+              <article
+                className="p-6 text-base bg-white rounded-lg dark:bg-gray-900"
+                key={comment.id}
+              >
+                <footer className="flex justify-between items-center mb-2">
+                  <div className="flex items-center">
+                    <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                      <Avatar className="size-6 mr-2">
+                        <AvatarImage src={comment.user.image ?? ""} />
+                        <AvatarFallback>
+                          {comment.user.name?.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+                      {comment.user.name}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      <time dateTime="2022-02-08" title="February 8th, 2022">
+                        {date}
+                      </time>
+                    </p>
+                  </div>
+                </footer>
+                <p className="text-gray-500 dark:text-gray-400">
+                  {comment.content}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  <time dateTime="2022-02-08" title="February 8th, 2022">
-                    {comment.createdAt.toLocaleString()}
-                  </time>
-                </p>
-              </div>
-            </footer>
-            <p className="text-gray-500 dark:text-gray-400">
-              {comment.content}
-            </p>
-          </article>
-        ))}
+              </article>
+            );
+          })}
       </div>
     </section>
   );
