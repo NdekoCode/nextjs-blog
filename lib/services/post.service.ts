@@ -1,10 +1,11 @@
 import { IPostDto } from '../schemas/dto/post.dto';
 import { PostCategory, postSchema } from '../schemas/post.schema';
+import { getApiUrl } from '../utils';
 import { getToken } from './utils.service';
 
 export const getPostBySlug = async (slug: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`);
+    const res = await fetch(getApiUrl(`/posts/${slug}`));
     const data = await res.json();
     if (!res.ok) {
       console.error(

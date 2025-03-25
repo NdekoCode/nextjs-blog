@@ -1,8 +1,9 @@
 import { categoriesPostSchema, CategoryPost } from '../schemas/post.schema';
+import { getApiUrl } from '../utils';
 
 export const getCategories = async()=>{
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
+    const res = await fetch(getApiUrl('/categories'));
     const categories = await res.json();
     return categoriesPostSchema.parse(categories);
   } catch (error) {
